@@ -18,11 +18,7 @@
     <div class="navbar-collapse collapse">       
 
       <ul class="nav navbar-nav navbar-right">
-        <% if current_user.present? %>
-          <% if current_user.authority == "admin" %>
-            <li><%= link_to "Notify Users", admin_notify_users_path %></li>
-          <% end %>
-        <% end %>
+       
         <li><%= link_to "", new_tutor_profiles_path %></li>
         <li><%= link_to "",tutor_profiles_path %></li>
         
