@@ -1,28 +1,25 @@
 <div class="jumbotron index">
-  <div class="row">
-    <div class="col-md-3 col-sm-2 col-xs-12">
-    </div>
-    <div class="col-md-6 col-sm-8">
-      <h2></h2>      
-      <div class="row">
-          <div class="col-md-6 col-sm-6">
-            <h5 style="color:white">수업 과목</h5>
+   <div class="row">    
+      <h2></h2>
+   </div>
+   <div class="row">
+      <div class="col-lg-2 col-md-1"></div>
+       <div class="col-lg-8 col-md-10">
              <%= form_tag search_tutor_profiles_path, :method=> :get, :class=> "center" do %>
       <%= select_tag :search, options_for_select(@all_tutors.map {|tt| [tt.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),tt]}), :include_blank => true, :id => "e1", :class => "form-control indexsearchbox font22 pull-left" %>
-          </div>
-      </div>           
-           <%= submit_tag "선생님 찾기", :name => nil, :class=> "indexsearchbutton pull-right" %>
-         </div>
+          <%= submit_tag "선생님 찾기", :name => nil, :class=> "indexsearchbutton pull-right" %>
+      </div>
+   </div>
+           
      <% end %>
-  </div>
-</div><!-- end of container-->
+   </div>
+</div><!-- end of jumbotron-->
 
 
 <div class="container">
 <div class="row">
   <div class="col-md-1 col-sm-1 col-xs-1"></div>          
     <div class="col-md-10 col-sm-10 col-xs-10">
-      <hr>
       <h1 style="text-align:center">명문대 합격까지 함께할 멘토들 </h1><br><br>      
       <div id="carousel-" class="carousel slide" data-ride="carousel" data-interval="false">
         <!-- Indicators -->
