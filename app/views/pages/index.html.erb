@@ -9,34 +9,7 @@
       <%= select_tag :search, options_for_select(@all_tutors.map {|tt| [tt.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),tt]}), :include_blank => true, :id => "e1", :class => "form-control indexsearchbox font22 pull-left", placeholder: t('What subject can we help with?') %>
           <%= submit_tag t("Find Tutors"), :name => nil, :class=> "indexsearchbutton pull-left" %>
           <br>
-          <div class="level" style="color:#ffffff">
-             <div class="col-md-6 col-sm-6 mrgtop10">
-               <div id="ua_list_head" style="cursor: pointer; font-weight: bolder;">
-                 <span style="font-size: 16px;"></span>
-                 <span class="collapse_status_button_1" style="font-size: 16px;">&nbsp;&nbsp;</span>
-                 <span class="collapse_status_button_1" style="font-size: 16px; display: none">&nbsp;&nbsp;-</span>
-               </div>
-               <br>
-               <div id="ua_list" style="font-size: 15px; display: none">
-                 <% Level.university_admission_levels.each do |ual| %>
-                   <%= check_box_tag "level[]", ual %> <%= ual %><br>
-                 <% end %>
-               </div>
-             </div>
-             <div class="col-md-6 col-sm-6 mrgtop10">
-               <div id="ep_list_head" style="cursor: pointer; font-weight: bolder;">
-                 <span style="font-size: 16px;">시험 준비</span>
-                 <span class="collapse_status_button_2" style="font-size: 16px;">&nbsp;&nbsp;+</span>
-                 <span class="collapse_status_button_2" style="font-size: 16px; display: none">&nbsp;&nbsp;-</span>
-               </div>
-               <br>
-               <div id="ep_list" style="font-size: 15px; display: none">
-                 <% Level.exam_preparation_levels.each do |epl| %>
-                   <%= check_box_tag "level[]", epl %> <%= epl %><br>
-                 <% end %>
-               </div>
-             </div>
-           </div><!-- end of level-->
+          
       </div>
    </div>
            

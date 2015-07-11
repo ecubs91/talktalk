@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
 
   def index
-    @all_levels = Level.get_all_levels
     @degree_subjects = TutorProfile.all.pluck(:degree_subject)
     @teaching_subjects = TutorProfile.all.pluck(:teaching_subject)
     @teaching_subject_2 = TutorProfile.all.pluck(:teaching_subject_2)
