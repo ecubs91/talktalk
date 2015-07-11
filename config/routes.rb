@@ -1,7 +1,8 @@
 Etsydemo::Application.routes.draw do
 
   
-
+scope "(:locale)", locale: /en|zh|ko/ do
+  
   resources :comments
 
   resources :blogs do
@@ -87,6 +88,7 @@ Etsydemo::Application.routes.draw do
   get "admin/run_script"
 
   root 'pages#index'
+end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -43,7 +43,7 @@
         <% else %>          
         <% end %>
         <p><b>국내:</b> <%= @tutor_profile.location_city %> (<%= @tutor_profile.detailed_location %>)</p>
-        <p><b>해외:</b> <%= [@tutor_profile.country,@tutor_profile.location_two].join(" | ") %>(<%= @tutor_profile.detailed_location_two %>) </p>
+        <p><b>해외:</b> <%= [@tutor_profile.country,@tutor_profile.location_two].join(" | ") %></p>
         <p><b>수업과목:</b><br>
         <p1 style="font-size:13px;"><i><%= @tutor_profile.tutor_degree_subjects.first.degree_subject.capitalize rescue nil %></i>: <%= @tutor_profile.tutor_degree_subjects.first.degree_subject_levels.pluck(:level).join(", ") rescue nil %><br>
           <% lws = @tutor_profile.levelwise_subjects %>

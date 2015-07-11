@@ -3,12 +3,7 @@
     <div class="col-md-1 col-sm-2 col-xs-1"></div>
     <div class="col-md-7 col-sm-7 col-xs-10">
       <h2>
-        <% if @search_levels.present? %>
-        <span style="font-size:45px; color:white"><%= @search_levels.to_sentence %></span> <span style="font-size:45px; color:white"><%= @search_subject.capitalize %></span> 선생님들을 만나보세요!
-        
-        <% else %>
-        <span style="font-size:45px; color:white"><%= @search_university %> <%= @search_subject %></span> 선생님들을 만나보세요!
-        <% end %>
+        <span style="font-size:45px; color:white">Meet <%= @search_subject %> friends</span>
       </h2>
     </div>
   </div>
@@ -17,30 +12,17 @@
   <br>  
 <div class="row">
   <div class="col-md-3 col-sm-4" style="border-right: 2px solid #eee">
-    <h4><b><%= @search_university %> <%= @search_subject %>자료 </b>&nbsp;<span class="badge">New</span> </h4>
-    <h4>      
-      · <%= link_to "칼리지 에세이", pages_college_essays_path, class: "link" %><br>
-      · <%= link_to "자기소개서", pages_personal_statements_path, class: "link" %> 
-    </h4>
-    <hr>
     <%= form_tag search_tutor_profiles_path, method: :get, class: "center" do %>
         <div class="row">
           <div class="col-lg-10">
-            <%= label_tag "수업 과목" %>
+             <%= label_tag t('Language') %>
             <%= select_tag :search, options_for_select(@all_tutors.map {|tt| [tt.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),tt]}.insert(0, ["수업과목",nil])), :id => "e1", :style=>"width:100%;", :class => "form-control" %>
           </div>
         </div>
         <br>
         <div class="row">
-          <div class="col-lg-10">
-            <%= label_tag "희망 대학" %>
-            <%= select_tag :search_university, options_for_select(University.all.pluck(:name),(@tutor_profile.university rescue nil)), :include_blank => true, :id => "university", :class => "form-control" %>
-          </div>
-        </div>
-        <br>
-        <div class="row">
           <div class="col-lg-10"  style="margin-top: 10px;">
-            <%= label_tag "수업 위치" %>
+            <%= label_tag t("Location") %>
             <%= select_tag :search_country, options_for_select([[" 나라 선택",""]]+@countries.pluck(:name)), :class => "form-control", :onchange=>"get_country_set_city(this.value)" %>
           </div>
         </div>
@@ -79,7 +61,7 @@
         <br>
         <div class="row">
           <div class="col-lg-10">
-            <%= submit_tag "선생님 찾기", :name => nil, :class => "btn btn-primary pull-right" %>
+            <%= submit_tag t("Find Tutors"), :name => nil, :class => "btn btn-primary pull-right" %>
           </div>
         </div>
     <% end %>
