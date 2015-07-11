@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2">    
+      <h1>Book tuition with <% user = User.find(@tutor_profile.user_id) 
+  %> <%= user.first_name %></h1>
+      for <h4><%= number_to_currency(@tutor_profile.hourly_rate) %></h4>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', tutor_profile_path(@tutor_profile) %>
+    </div>
+  </div>

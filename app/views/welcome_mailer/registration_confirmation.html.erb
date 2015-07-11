@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <style>
+            p {font-size:20px;}
+          </style>
+  <h2><%= @user.first_name %>님 안녕하세요!</h2>          
+      <p>그루미 회원이 되신 걸 환영합니다. 이제 세계 명문대학교 출신의 선생님들과 자료들을 만나보시죠!</p> 
+
+          <h3 style="color:#0068C0">과외 공간</h3>
+          <p>해외 명문대 재학생 및 졸업생 From</p>
+          <li>미국 아이비 리그</li>
+          <li>영국 옥스브릿지, LSE, 임페리얼, UCL</li>
+          <li>해외고 졸업후 국내 SKY 및 의대</li>
+
+          <h3 style="color:#0068C0">자료 공간</h3>
+          <li><%= link_to "칼리지 에세이", pages_college_essays_url, class: "link" %> By 아이비리그 학생들</li>
+          <li><%= link_to "자기소개서", pages_personal_statements_url, class: "link" %> By 옥스브리지 학생들</li>
+          <li>명문대 재학생들과의 인터뷰 on <%= link_to "입시 경험담", blogs_url, class: "link" %></li>
+   
+          <p>IB, A-Level, GCSE, SAT, AP 시험을 그리고 대입준비를 성공적으로 치뤘던 현 재학생 선생님들보다 더 좋은 선생님이 있을가요? 지금 당장 세계 명문대 재학생들과 만나보시죠!</p>   
+    
+          <p>원하시는 선생님이 안계시다구요? 저희 그루미팀에게 알려주시면 빠른시일내에 원하시는 대학 그리고 위치에 맞는 선생님을 찾아드리겠습니다.</p>
+    
+          <p>그루미와 함께 하시죠!^^</p>          
+          <p><b>그루미 팀</b></p>
+          <a href="https://www.facebook.com/pages/GuruMe-%EA%B7%B8%EB%A3%A8%EB%AF%B8/835390749864967?fref=ts" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/fb.png" border="0" class="img-circle" style="margin:5px; width:50px"></a>
+          <a href="http://blog.naver.com/ecubs91" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/%EB%84%A4%EC%9D%B4%EB%B2%84+%EB%B8%94%EB%A1%9C%EA%B7%B8.png" border="0" class="img-circle" style="margin:5px; width:50px"></a> 
+        </div>          
+        </div>
+    </div>
+  </body>
+</html>

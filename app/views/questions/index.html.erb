@@ -1,0 +1,26 @@
+<br><br>
+<div class="container"> 
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <%= link_to 'New Question', new_question_path, class: "btn btn-danger pull-right" %>  
+      <h1>Ask a tutor</h1>
+        <table class="table table-striped questions">
+          <tbody>
+            <% @questions.each do |question| %>
+              <p>
+                <tr>
+                <td><%= question.subject %></td>
+                <td><%= link_to question.question, question, class: "link" %> <i style="font-size: 15px">by <% @user = User.find(question.user_id) %> <%= @user.first_name.capitalize %><i></td>
+                <% if question.user==current_user %>
+                <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% end %>
+                </tr>
+              </p>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+<br>
+

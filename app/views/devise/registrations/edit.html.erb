@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+<h2>개인정보 설정</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+            <div class="form-group">
+              <%= f.label :이름 %><br />
+              <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :이메일_주소 %><br />
+              <%= f.email_field :email, autofocus: true, class: "form-control" %>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="form-group">
+              <%= f.label :비밀번호 %> <i>(변경을 원하시지 않으시면 비워두세요)</i>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :비밀번호_확인 %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :현재_비밀번호 %> <i>(변경을 위해선 현재 비밀번호가 필요합니다)</i>
+              <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+            </div>
+
+        <div><%= f.submit "변경내용 저장하기", class: "btn btn-success" %></div>
+          <% end %>
+<br>
+           <p>
+           <%= button_to "그루미 계정 삭제하기", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %></p>
+
+          <%= link_to "뒤로 가기", :back %>
+    </div>
+  </div>

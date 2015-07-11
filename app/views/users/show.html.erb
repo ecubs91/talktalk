@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>FirstName:</strong>
+  <%= @user.first_name %>
+</p>
+
+<p>
+  <strong>Last Name:</strong>
+  <%= @user.last_name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+<% if check_current_user?(@user) %>
+  <div> <%= link_to "Edit", edit_user_path(@user) %>  </div>
+  <br>
+  <p><%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+<% end %>
+
+<%= link_to 'Back list of users', users_path %>
+<br>
+<%= link_to 'Back to conversations', root_path %>
+</p>
+

@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @enquiry.subject %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @enquiry.level %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @enquiry.location %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @enquiry.duration %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @enquiry.start_date %>
+</p>
+
+<p>
+  <strong>Tuition fee:</strong>
+  <%= @enquiry.tuition_fee %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @enquiry.note %>
+</p>
+
+
+<%= link_to "Message", new_message_path(user: @enquiry.user), class: "btn btn-primary" %>
+
+<%= @enquiry.user.inspect %>
+<%= link_to 'Edit', edit_enquiry_path(@enquiry) %> |
+<%= link_to 'Back', enquiries_path %>

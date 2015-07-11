@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hours:</strong>
+  <%= @tuition.hours %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @tuition.city %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @tuition.note %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @tuition.user_id %>
+</p>
+
+<p>
+  <strong>Tutor profile:</strong>
+  <%= @tuition.tutor_profile_id %>
+</p>
+
+<%= link_to 'Edit', edit_tuition_path(@tuition) %> |
+<%= link_to 'Back', tuitions_path %>

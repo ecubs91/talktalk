@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+      <h2 style="text-align:center">Payment for booking tuition<br>
+        with <% user = User.find(@tutor_profile.user_id)%> <%= user.first_name %><br><%= number_to_currency(@tutor_profile.hourly_rate.to_i*@tuition.hours, :unit => "&pound;".html_safe ) %></h2>
+<br>
+      <%= form_for @tuition, :url => perform_transaction_tutor_profile_tuitions_path, :method => :post do |f| %>
+
+          <%= f.hidden_field :hours %>
+          <%= f.hidden_field :city %>
+          <%= f.hidden_field :note %>
+          <%= f.hidden_field :user_id %>
+          <%= f.hidden_field :tutor_profile_id %>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <%= label_tag :credit_card_number %>
+              <%= text_field_tag :credit_card_number, nil, :class=>"form-control" %>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6">
+              <%= label_tag :expiration_date %>
+              <div class="row">
+                <div class="col-lg-6">
+                  <%= select_tag :expiration_month, options_for_select([["January",1],["February",2],["March",3],["April",4],["May",5],["June",6],["July",7],["August",8],["September",9],["October",10],["November",11],["December",12]]), :class => "form-control" %>
+                </div>
+                <div class="col-lg-6">
+                  <%= select_tag :expiration_year, options_for_select(Date.today.year..Date.today.year.to_i+20), :class => "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <%= label_tag :cvv %>
+                <%= text_field_tag :cvv, nil, :class=>"form-control" %>
+              </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6">
+              <%= link_to "Back", :back, class: "linkbuttonb" %>
+            </div>
+            <div class="col-lg-6">
+              <div style="float: right;">
+                <%= f.submit "Pay", :class => "btn btn-success" %>
+              </div>
+            </div>
+          </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

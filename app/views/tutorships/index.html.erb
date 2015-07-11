@@ -1,0 +1,46 @@
+<h1>Admin</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Tutor</th>
+      <th>Student</th>
+      <th>Subject</th>
+      <th>Accepted</th>
+      <th>Starting date</th>
+      <th>Hourly Rate</th>
+      <th>hours/week</th>
+      <th>Weeks</th>
+      <th>Tuition Fee</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tutorships.each do |tutorship| %>
+      <tr>
+        <td><% 
+  tutor_profile = TutorProfile.find(tutorship.tutor_profile_id) 
+  user = User.find(tutor_profile.user_id) 
+  %>
+        <%= user.first_name %> </td>
+        <td><% user = User.find(tutorship.user_id) %><%= user.first_name %></td>
+        <td><%= tutorship.accepted %></td>
+        <td><%= tutorship.starting_date %></td>
+        <td><%= tutorship.hourly_rate %></td>
+        <td><%= tutorship.hours_a_week %></td>
+        <td><%= tutorship.weeks %></td>
+        <td><%= tutorship.tuition_fee %></td>
+        <td></td>
+        <td></td>
+        <td><%= link_to 'Show', tutorship %></td>
+        <td><%= link_to 'Edit', edit_tutorship_path(tutorship) %></td>
+        <td><%= link_to 'Destroy', tutorship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tutorship', new_tutorship_path %>

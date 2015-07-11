@@ -1,0 +1,83 @@
+<div class="container">
+   <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h2 style="text-align:center">My Tuition</h2><br>
+
+      <% if current_user.tutor_profile.present? %>
+
+        <table class="table table-striped">
+          <tr>
+            <th>Student Name</th>
+            <th>Subject</th>
+            <th>Hours</th>
+            <th>Contact Details</th>
+            <th>Tuition Fee</th>
+            <th>Reviews</th>
+          </tr>
+          <% @tuitions.each do |tuition| %>
+            <tr>
+              <td><%= tuition.user.first_name.capitalize rescue "Student Erased" %></td>
+              <td></td>
+              <td><%= tuition.hours %></td>
+              <td></td>
+              <td>&pound;<%= '%.2f' % tuition.payment_amount %></td>
+              <td> <%= link_to "Request Review", send_user_specific_request_for_review_tutor_profiles_path(:tuition_id => tuition.id) %> </td>
+            </tr>
+          <% end %>
+        </table>
+
+      <% else %>
+
+        <table class="table table-striped">
+          <tr>
+            <th></th>
+            <th style="text-align: center">Tutor</th>
+            <th>Subject</th>
+            <th>Level</th>
+            <th>Hours</th>
+            <th>Contact Details</th>
+            <th></th>
+          </tr>
+          <% @tuitions.each do |tuition| %>
+          <tr>
+            <td>
+              <% if tuition.tutor_profile.present? %>
+                <a href="/tutor_profiles/<%= tuition.tutor_profile_id %>">
+                  <div class="round-avatarmytuition" style = 'background-image: url(<%= tuition.tutor_profile.image.url rescue "default.jpg" %>);'></div>
+                </a>
+              <% else %>
+                Tutor Profile Erased
+              <% end %>
+            </td>
+            <td><%= tuition.user.first_name rescue "Student Erased" %></td>
+            <td></td>
+            <td></td>
+            <td><%= tuition.hours %></td>
+            <td><%= tuition.user.email rescue "Student Erased" %></td>
+            <td>
+              <% if tuition.tutor_profile.present? %>
+                <%= link_to "Book Tuition", book_tuition_tutor_profile_tuitions_path(tuition.tutor_profile), class: "btn btn-danger", data: { no_turbolink: true } %>
+              <% else %>
+                Tutor Removed
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+
+<style>
+.table th, td {
+  font-family: adelle_ltlight;
+  font-size: 18px;
+  text-align:center;
+  vertical-align: middle;
+}
+  
+.table-striped {
+  text-align:center;
+  th, td {text-align:center;}
+}
+</style>

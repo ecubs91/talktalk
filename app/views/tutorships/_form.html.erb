@@ -1,0 +1,51 @@
+<%= form_for(@tutorship) do |f| %>
+  <% if @tutorship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tutorship.errors.count, "error") %> prohibited this tutorship from being saved:</h2>
+
+      <ul>
+      <% @tutorship.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :starting_date %><br>
+          <%= f.text_field :starting_date, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :hourly_rate %><br>
+          <%= f.number_field :hourly_rate, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :hours_a_week %><br>
+          <%= f.number_field :hours_a_week, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :weeks %><br>
+          <%= f.number_field :weeks, class: "form-control" %>
+        </div>
+      </div>  
+      <div class="form-group">
+          <%= check_box_tag '' %> I have read and agree to <a href="/pages/terms_and_conditions">Terms and Conditions</a> set by Young Tutors
+      </div>  
+      <div class="actions">
+        <%= f.submit "Request Tutorship", class: "btn btn-success" %>
+      </div>
+    </div><!-- end of row -->
+  </div>
+</div>
+
+<% end %> 

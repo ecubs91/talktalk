@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  university: MyString
+  degree_subject: MyString
+  teaching_subject: MyString
+  location: MyString
+  about_myself: MyText
+  tutoring_approach: MyText
+  teaching_experience: MyText
+  extracurricular_interests: MyText
+
+two:
+  user_id: 1
+  university: MyString
+  degree_subject: MyString
+  teaching_subject: MyString
+  location: MyString
+  about_myself: MyText
+  tutoring_approach: MyText
+  teaching_experience: MyText
+  extracurricular_interests: MyText

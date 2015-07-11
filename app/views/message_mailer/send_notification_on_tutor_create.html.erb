@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h3><%= @tutor_profile.user.first_name %> 선생님,</h3>  
+    
+    <h4>그루미 선생님이 되신 걸 축하드립니다. 빠른 시일 내에 대입 입시 지도 및 커리큘럼 지도 학생을 소개시켜드릴 수 있도록 노력하겠습니다!</h4>
+    <p>저희 사이트내에 수업 후기 시스템이 대해 잠시 말씀드리고 싶습니다:</p>
+
+    <h3 style="color:#7997F2">수엄 후기</h3>
+      <p style="color:#757582">전 과외 학생(들)이 있다면 <%= link_to "후기 요청", invite_for_review_tutor_profiles_url %> 에서 수업 후기 요청을 해보세요~ 수업 후기가 많을 수록 더 많은 학생으로부터 수업 문의가 들어 옵니다^^</p>
+    
+    <!--<h3 style="color:#f25842">Answer 'Questions'</h3>
+    <p style="color:#757582">GuruMe provides a forum where students can post a public question on <%= link_to "Ask a Tutor", questions_url %>. This is your chance to advertise yourself as a knowledgeable and responsive tutor! We kindly encourage you to comment answers to a question in your academic area of expertise</p>-->
+    <br>
+    <p>선생님 프로필은 상단 우측에 있는 <%= link_to "내프로필", tutor_profile_url(:id => @tutor_profile.id) %> 에서 수정 가능하며 사이트내 메세지는 <%= link_to "메세지", conversations_url %>에서 확인 가능합니다.</p>
+    <p>궁금한 점이 있으시다면, 언제든지 연락 바랍니다.</p>      
+    <p>감사합니다</p>    
+    <p><b>이혁진 드림</b></p>
+    <a href="https://www.facebook.com/pages/GuruMe-%EA%B7%B8%EB%A3%A8%EB%AF%B8/835390749864967?fref=ts" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/fb.png" border="0" class="img-circle" style="margin:5px; width:50px"></a>
+    <a href="http://blog.naver.com/ecubs91" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/%EB%84%A4%EC%9D%B4%EB%B2%84+%EB%B8%94%EB%A1%9C%EA%B7%B8.png" border="0" class="img-circle" style="margin:5px; width:50px"></a> 
+  </body>
+</html>

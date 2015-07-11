@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-12">
+
+    <%= content_tag_for(:div, conversation.receipts_for(current_user).order(:created_at => :desc) ) do |receipt| %>
+
+      <% message = receipt.message %>
+
+      <% if message.sender == current_user %>
+
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="messagei pull-left">
+              <p><%= message.updated_at.strftime("%m/%e/%Y %I:%M %p") %>
+                <%= simple_format h message.body %></p>
+            </div>
+          </div>
+        </div>
+
+      <% else %>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4"></div>
+          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="messageyou pull-right">
+              <p><%= message.sender.first_name %>, <%= message.updated_at.strftime("%m/%e/%Y %I:%M %p") %>
+                <%= simple_format h message.body %></p>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+
+    <% end %>
+
+  </div>
+</div>
+

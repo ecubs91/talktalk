@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-md-offset-2">
+    <div class="right"> 
+      <%= link_to new_tutor_profile_path, class: "btn btn-primary", data: { no_turbolink: true } do %>
+          <i class="glyphicon glyphicon-plus"></i> <%= t('post_a_tutor_profile') %>
+      <% end %>
+    </div>
+    </div>
+  </div>
+    
+
+  <div class="row">
+    <% @enquiries.each do |enquiry| %>          
+            <div class="col-md-7 col-md-offset-2">
+
+              <h3><%= enquiry.subject %>
+                <a href="/enquiries/<%= enquiry.id %>"></h3>
+              <p><%= t('level', level: enquiry.level) %> &nbsp;|&nbsp; <%= t('duration', duration: enquiry.duration) %> &nbsp;|&nbsp; <%= t('location', location: enquiry.location) %></p>  
+              <p><%= truncate(enquiry.note, :length => 275) %></p>
+                     
+              <% if (user_signed_in?) && (current_user == enquiry.user) %>
+                <%= link_to 'Edit', edit_enquiry_path(enquiry), class: "btn btn-link" %>            
+                <%= link_to 'Destroy', enquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" %> 
+              <% end %>  
+           </div>
+           <div class="col-md-2">
+            
+              <!-- only tutors can write proposals, if a user doesn't have tutor profile, redirection to homepage with notification -->
+             
+           </div>        
+    
+    <% end %>
+  </div>
+  
+<br>
+
+<%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+
+<br>
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+  <% receiver = User.find(@message.receipts.pluck(:receiver_id)-[@message.sender.id]).first %>
+    <h3>안녕하세요 <%= receiver.first_name %>님</h3>
+    <p><b><%= @message.sender.first_name.capitalize %></b>님으로부터 수업 관련 메세지가 도착했습니다.</p>
+      
+      
+   
+    <blockquote>
+      <p style="border-left: 3px solid #0068C0; padding-left: 12px;">
+        <%= @subject %><br><br>
+        <%= raw @message.body %><br>
+        <span style="color:#757582">Sent on <%= @message.conversation.updated_at.strftime("%m/%e/%Y %I:%M %p") %></span>
+      </p>
+    </blockquote>
+    <br>
+    <br>
+    <p>
+      <%= link_to "답장하기", conversation_url(:id => @message.conversation.id), :style => "background-color: #0068C0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 20px;
+    padding: 7px 10px 7px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;" %>
+    </p>
+  
+  </body>
+</html>

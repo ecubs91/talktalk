@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>그루미 | 유학생 명문대 입시 과외/자료 공간</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="그루미는 해외 명문대 입시 생들을 위한 과외 및 자료 공간입니다. 과외 선생님: 미국 아이비 리그를 비롯한 미국 명문대, 홍콩대, 싱가폴 국립대, 해외고 졸업후 국내 SKY 및 의대, 영국 옥스브릿지, 런던대의 재학생 및 졸업생. 자료 공간: 아이비 리그, 옥스브리지, 국내 SKY 재학생들이 쓴 칼리지 에세이, 자기소개서 그리고 입시 경험담." />
+  <link rel="image_src" href="http://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/fblinkthumbnail.png" / >
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>  
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+  <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "autocomplete-rails.js" %>
+  <%= javascript_include_tag :defaults, "nested_form" %>
+  <%= tag :meta, :name => "stripe-key", :content => ENV["STRIPE_PUBLIC_KEY"] %>
+  <meta name="google-site-verification" content="1F74eFgcNWhrwjWABldPDdAIwcNI5nqqGFmihQX_K7o" /><link rel="stylesheet" href="jquery-ui.min.css">
+  <script src="external/jquery/jquery.js"></script>
+  <script src="jquery-ui.min.js"></script>
+</head>
+<body>
+
+<%= render 'layouts/facebook' %> 
+
+<%= render 'layouts/header' %>
+
+
+<% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+        <div class="alert alert-<%= name == :notice ? "success" : "danger" %> alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        </div>
+    <% end %>
+<% end %>
+
+<div class="page-wrap">
+  <%= yield %>
+</div>
+<%= render 'layouts/footer' %>
+</div>
+  <style>
+    html, body {
+      height: 80%;
+    }
+
+    .page-wrap {
+      min-height: 100%;
+    }
+    h1, h2, h3, h2 a {
+      color: #36495e;
+      font-family: adelle_ltlight;        
+      }
+      p, li, li a {font-size: 16px;
+        color: #545454;
+        font-family: adelle_ltlight;
+      }
+     h4, h5 {
+       color: #545454;
+       font-family: adelle_ltlight;
+     }
+     .myButtons{
+       height: 50px;
+       width: 150px;
+       font-size: 20px;
+       padding-top: 10px;            
+     }
+  </style>
+  
+</body>
+</html>

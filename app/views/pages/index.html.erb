@@ -1,0 +1,340 @@
+<div class="jumbotron index">
+  <div class="row">
+    <div class="col-md-3 col-sm-2 col-xs-12">
+    </div>
+    <div class="col-md-6 col-sm-8">
+      <h2>유학생들을 위한 과외 공간 그루미<br>미국, 홍콩, 영국, 호주, 싱가폴 +</h2>      
+      <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h5 style="color:white">수업 과목</h5>
+             <%= form_tag search_tutor_profiles_path, :method=> :get, :class=> "center" do %>
+      <%= select_tag :search, options_for_select(@all_tutors.map {|tt| [tt.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),tt]}), :include_blank => true, :id => "e1", :class => "form-control indexsearchbox font22 pull-left" %>
+          </div>
+          <div class="col-md-6 col-sm-6">
+             <h5 style="color:white">희망 대학</h5>
+            <%= select_tag :search_university, options_for_select([["",""]]+University.all.pluck(:name),(@tutor_profile.university rescue nil)), :include_blank => true, :id => "university", :class => "form-control indexsearchbox", placeholder: "희망대학" %>
+          </div>
+      </div>
+      <h5 style="color:white;">수업 위치</h5>
+        <div class="row">          
+          <div class="col-md-6 col-sm-6">
+            <div id="search_country_select">             
+              <%= select_tag :search_country, options_for_select([[" 나라 선택",""]]+@countries.pluck(:name)), :onchange => "get_country_set_city(this.value)", :id => "e2", :class => "form-control indexsearchbox" %>
+            </div>
+          </div>          
+          <div class="col-md-6 col-sm-6">
+            <div id="search_city_select">             
+              <%= select_tag :search_city, options_for_select([[" 도시 선택",""]]), :id => "e4", :class => "form-control indexsearchbox" %>
+            </div>
+          </div>
+        </div>
+         
+           <div class="level" style="color:#ffffff">
+             <div class="col-md-6 col-sm-6 mrgtop10">
+               <div id="ua_list_head" style="cursor: pointer; font-weight: bolder;">
+                 <span style="font-size: 16px;">대입 준비</span>
+                 <span class="collapse_status_button_1" style="font-size: 16px;">&nbsp;&nbsp;+</span>
+                 <span class="collapse_status_button_1" style="font-size: 16px; display: none">&nbsp;&nbsp;-</span>
+               </div>
+               <br>
+               <div id="ua_list" style="font-size: 15px; display: none">
+                 <% Level.university_admission_levels.each do |ual| %>
+                   <%= check_box_tag "level[]", ual %> <%= ual %><br>
+                 <% end %>
+               </div>
+             </div>
+             <div class="col-md-6 col-sm-6 mrgtop10">
+               <div id="ep_list_head" style="cursor: pointer; font-weight: bolder;">
+                 <span style="font-size: 16px;">시험 준비</span>
+                 <span class="collapse_status_button_2" style="font-size: 16px;">&nbsp;&nbsp;+</span>
+                 <span class="collapse_status_button_2" style="font-size: 16px; display: none">&nbsp;&nbsp;-</span>
+               </div>
+               <br>
+               <div id="ep_list" style="font-size: 15px; display: none">
+                 <% Level.exam_preparation_levels.each do |epl| %>
+                   <%= check_box_tag "level[]", epl %> <%= epl %><br>
+                 <% end %>
+               </div>
+             </div>
+           </div><!-- end of level-->
+           <%= submit_tag "선생님 찾기", :name => nil, :class=> "indexsearchbutton pull-right" %>
+         </div>
+     <% end %>
+  </div>
+</div><!-- end of container-->
+
+
+<div class="container">
+  <div class="howitworks">  
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="row">
+          <h1 style="color:#2E3338">이용방법</h1><br>
+          <div class="col-md-4">
+            <h1><span class="glyphicon glyphicon-search"></span></h1>
+            <h3>선생님 찾기</h3><br>
+            <p>과목, 레벨, 위치, 출신 대학: 선생님들의 프로필 그리고 후기를 보고 원하시는 선생님을 찾습니다.</p>
+            <p></p>
+          </div>
+          <div class="col-md-4">
+            <h1><span class="glyphicon glyphicon-envelope"></span></h1>
+            <h3>선생님께 연락하기</h3><br>
+            <p>수업을 통해 어떤 목표를 달성하고 싶은지, 희망 수업 날짜는 언제인지, 수업료는 얼마쯤 생각하고 있는지 지금 바로 연락합니다.</p>
+          </div>
+          <div class="col-md-4">
+            <h1><span class="glyphicon glyphicon-pencil"></span></h1>
+            <h3>배우기 시작하기</h3><br>
+            <p>수업 날짜가 정해졌으면 이제 연락처 교환을 하고 수업을 시작합니다.</p>
+          </div>
+        </div><!-- end of row -->
+      </div>
+    </div><!-- end of row --> 
+  </div><!-- end of howitworks-->
+<br>
+
+<div class="row">
+  <div class="col-md-1 col-sm-1 col-xs-1"></div>          
+    <div class="col-md-10 col-sm-10 col-xs-10">
+      <hr>
+      <h1 style="text-align:center">명문대 합격까지 함께할 멘토들 </h1><br><br>      
+      <div id="carousel-" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-" data-slide-to="1"></li>
+          <li data-target="#carousel-" data-slide-to="2"></li>
+        </ol>
+ 
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="tutorcarousel">        
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <a href="http://www.gurume.kr/tutor_profiles/17">
+                  <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/dresong.jpg" class="img-circle">
+                </a>
+                  <h3>송두레</h3>
+                  <h4>옥스퍼드 &nbsp;|&nbsp; 물리</h4>
+                  <p>"현재 Physics 학석사 과정에 재학중이며, 한국과학영재학교를 졸업했습니다. 2011년 싱가폴 유학생들의 GCSE와 A-level, AP, IB를 가르친 것을 시작으로... "</p>     
+              </div>
+              <div class="col-md-4 col-sm-4">     
+                <a href="http://www.gurume.kr/tutor_profiles/30">
+                    <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/030/small/02%EC%B5%9C%EC%A7%80%EC%9B%85IMG_0878_%EB%B0%98%EB%AA%85.jpg?1429011880" class="img-circle" >
+                </a>
+                  <h3>최지웅</h3>
+                  <h4>Carnegie Mellon &nbsp;|&nbsp; 공학</h4>
+                  <p>"안녕하세요 올해 민족사관고등학교를 졸업하고 카네기멜론 (Carnegie Institute of Technology) 공대에 입학 예정인 선생님 입니다. 이과 계열 학생들에게는..."</p>              
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <a href="http://www.gurume.kr/tutor_profiles/23">
+                    <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/023/small/2014-06-15_15.22.41.jpg?1428074023" class="img-circle">
+                </a>
+                  <h3>Jennifer Kim</h3>
+                  <h4>Columbia &nbsp;|&nbsp; 심리학</h4>
+                  <p>"안녕하세요 
+  현재 컬럼비아 대학원 PhD 재학중인 강사입니다. 과외 및 컨설팅 경험은 4년 정도 가지고 있으며 직접 만나서 할 수도 있고, 멀리 사시는..."</p>
+              </div>
+            </div><!-- end of row -->
+          </div>
+        </div><!-- end of item -->
+        <div class="item">
+          <div class="tutorcarousel">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <a href="http://www.gurume.kr/tutor_profiles/18">
+                  <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/018/small/image.jpg?1426524484" class="img-circle">
+                </a>
+                  <h3>강지원</h3>
+                  <h4>LSE &nbsp;|&nbsp; 정치 경제학</h4>
+                  <p>"LSE에서 Government and Economics를 전공하였으며, 2011년 영국 유학생들을 대상으로 A-level 개인 과외를 시작하여 현재까지 꾸준히 학생들을 가르치고... "</p>     
+              </div>
+              <div class="col-md-4 col-sm-4">     
+                <a href="http://www.gurume.kr/tutor_profiles/38">
+                    <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/038/small/%EC%B5%9C%EC%98%88%EC%9B%90.jpg?1430316967
+" class="img-circle" >
+                </a>
+                  <h3>최예정</h3>
+                  <h4>서울대 &nbsp;|&nbsp; 영문학</h4>
+                  <p>"현재 대학교 2학년이고 영어권 국가에서 15년간 거주한 경험이 있습니다. 고등학생 때 IB 과정을 이수하였고 특기인 영어는 IB Literature HL 을 하였습니다..."</p>              
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <a href="http://www.gurume.kr/tutor_profiles/24">
+                    <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/024/small/mb.jpg?1428806625" class="img-circle">
+                </a>
+                  <h3>심규현</h3>
+                  <h4>Cornell &nbsp;|&nbsp; 도시학</h4>
+                  <p>"저는 지난 2011년 청심국제고등학교를 졸업하여 미국 코넬대학교(College of Architecture, Art, and Planning) 재학중입니다. 2011년부터 현재까지..."</p>
+              </div>
+            </div><!-- end of row -->                 
+          </div>
+        </div>
+        <div class="item">
+          <div class="tutorcarousel">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <a href="http://www.gurume.kr/tutor_profiles/28">
+                  <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/028/small/10371399_664284540329705_6809935128969172797_n.jpg?1428857594" class="img-circle">
+                </a>
+                  <h3>김연석</h3>
+                  <h4>Cornell &nbsp;|&nbsp; 고전학</h4>
+                  <p>"고등학교에서 4년간 올 A 내신 유지. 고등학교에서 Debate club, Newspaper Club 임원. 그리고 Biology Olympiad Club, Cyber Defense Club... "</p>     
+              </div>
+              <div class="col-md-4 col-sm-4">     
+                <a href="http://www.gurume.kr/tutor_profiles/27">
+                    <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/027/small/image.jpg?1428843211" class="img-circle" >
+                </a>
+                  <h3>송수진</h3>
+                  <h4>UC Berkeley &nbsp;|&nbsp; 영양학</h4>
+                  <p>"캐나다에서 중, 고등학교를 나온 후 미국 UC Berkeley에서 Nutritional Sciences: Physiology and Metabolism을 공부하였습니다. 현재 연세대학교 의과학과..."</p>              
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <a href="http://www.gurume.kr/tutor_profiles/6">
+                    <img src="http://s3.amazonaws.com/gurumek.s3-ap-northeast-1.amazonaws.com/tutor_profiles/images/000/000/006/small/passport.jpg?1428805998" class="img-circle">
+                </a>
+                  <h3>이혁진</h3>
+                  <h4>Oxford &nbsp;|&nbsp; 생화학</h4>
+                  <p>"안녕하세요 어렸을 때부터 (12살) 영국에서 학교를 다니고 작년에 유학생활을 끝 마쳤습니다. Wellington College라는 기숙사 학교에서 Top Scholarship..."</p>
+              </div>
+            </div><!-- end of row -->
+          </div><!--  end of col-md-9 -->
+        </div>
+      </div>
+      <h4><%= link_to '그루미 멘토들 더 보기', tutor_profiles_path, class: "pull-right" %></h4>     
+    </div>
+  </div>
+</div>  
+<br>
+  
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <hr>
+      <div class="row">
+        <h1 style="color:#2E3338; text-align:center">칼리지 에세이</h1><br>
+        <div class="col-md-4 col-sm-4">
+           <div class="thumbnail">
+             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_princeton.jpg">
+             <div class="caption">
+                <h3>Princeton, Molecular Biology, 2010</h3>
+                <h4><b>Write about what you like</b></h4>
+                  <p style="font-size:12px;">She wore a fluffy elf cap—powder pink, of course—and at barely an arm’s length, she already sported wispy hair and delicate fingers and toes. Still, her puffy eyes seemed...</p>
+               <p style="text-align:right"><%= link_to '더 보기', pages_college_essays_path, class:"btn btn-default" %></p>
+             </div>
+           </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+           <div class="thumbnail">
+             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_stanford.jpg">
+             <div class="caption">
+                <h3>Stanford, Economics, 2011</h3>
+                <h4><b>Tell us what makes Stanford a good place for you.</b></h4>
+                  <p style="font-size:12px;">In AP Statistics, I often utilized the Least Squares method to find correlations between two data sets. First, I would gen...</p>
+               <p style="text-align:right"><%= link_to '더 보기', pages_college_essays_path, class:"btn btn-default" %></p>
+             </div>
+           </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+           <div class="thumbnail">
+             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_pennsylvania.jpg">
+             <div class="caption">
+                <h3>Pennsylvania, Engineering, 2009</h3>
+                <h4><b>Which of the academic communities and social...</b></h4>
+                  <p style="font-size:12px;">I see the beauty in our natural assembly of neurons, the splendor of circuits in digital chips, and of course the undying...</p>
+               <p style="text-align:right"><%= link_to '더 보기', pages_college_essays_path, class:"btn btn-default" %></p>
+             </div>
+           </div>
+        </div>       
+      </div><!-- end of row -->
+    </div>
+  </div>
+<br> 
+    <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <hr>
+      <div class="row">
+        <h1 style="color:#2E3338; text-align:center">자기소개서</h1><br>
+        <div class="col-md-4 col-sm-4">
+           <div class="thumbnail">
+             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_lse.jpg">
+             <div class="caption">
+                <h3>LSE, Mathematics, 2012</h3>
+                <p style="font-size:12px;">The first time I decided that I really wanted to study a Mathematics degree was after reading Simon Singh’s ‘Fermat’s Last Theorem’. I was captivated by his description of Andrew Wiles’ struggle to prove one of the most di!cult problems in Mathematics. Besides reading about Wiles’ remarkable perseverance and dedication, two important qualities for a mathematician, I also enjoyed some...</p>
+               <p style="text-align:right"><%= link_to '더 보기', pages_personal_statements_path, class:"btn btn-default" %></p>
+             </div>
+           </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+           <div class="thumbnail">
+             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_cambridge.jpg">
+             <div class="caption">
+                <h3>Cambridge, Natural Sciences, 2011</h3>               
+                  <p style="font-size:12px;">Arguably, this is an age where societal development is closely linked with advances in science and technology. Things we take for granted, such as drugs, capture my curiosity. This is because our manipulation of them is within the limits of our knowledge on the complexity of life. Therefore progress is largely dependent on explorations... </p>
+               <p style="text-align:right"><%= link_to '더 보기', pages_personal_statements_path, class:"btn btn-default" %></p>
+             </div>
+           </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+           <div class="thumbnail">
+             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_imperial.jpg">
+             <div class="caption">
+                <h3>Imperial College, Engineering, 2011</h3>                
+                  <p style="font-size:12px;">From a young age I have been mesmerised by the world of science and technology. I am specifically drawn by the science of the materials that are used to create our industrial world. When the Nobel Prize was just recently awarded to the discoverers of graphene, a breakthrough, atom-thin carbon material, my fascination has been reignited...</p>
+               <p style="text-align:right"><%= link_to '더 보기', pages_personal_statements_path, class:"btn btn-default" %></p>
+             </div>
+           </div>
+        </div>       
+      </div><!-- end of row -->
+      </div>
+    </div>
+<br> 
+</div><!-- end of container-->
+  
+<script>
+  $(document).ready(function() { $("#e1").select2({placeholder: "수업과목", allowClear: true}); });
+</script>
+
+<script>
+  $("#ua_list_head").click(function(){
+    $("#ua_list").slideToggle("slow")
+    $(".collapse_status_button_1").toggle()
+  })
+  $("#ep_list_head").click(function(){
+    $("#ep_list").slideToggle("slow")
+    $(".collapse_status_button_2").toggle()
+  })
+</script>
+
+<script>
+  function get_country_set_city(country){
+    $.ajax({
+      url: "<%= pages_get_country_set_city_path %>",
+      method: "POST",
+      data: {country_name : country},
+      success:function(data){
+        cities = data.cities
+        options = '<option value="">Select City</option>'
+        for(i=0;i<cities.length;i++){
+          options = options + '<option value='+'"'+ cities[i]+'"' +'> ' + cities[i] + '</option>'
+        }
+        $("#search_city_select").html(
+          '<select class="form-control indexsearchbox" name="search_city" >'+
+            options+
+          '</select>'
+        )
+      }
+    })
+  }
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63657243-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

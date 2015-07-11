@@ -1,0 +1,15 @@
+<h2>Degree Subjects Level</h2>
+
+<%= form_tag create_degree_subject_level_admin_tutor_degree_subject_path do %>
+
+  <div style="margin-left: 50px; margin-top: 30px;">
+    <% @levels.each do |level| %>
+      <%= check_box_tag "levels[]", level %>&nbsp;&nbsp;<%= level %><br><br>
+    <% end %>
+  </div>
+
+  <br><br>
+
+  <%= submit_tag "Create" %>
+<% end %>
+

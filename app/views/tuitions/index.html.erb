@@ -1,0 +1,35 @@
+<h1>Listing tuitions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hours</th>
+      <th>City</th>
+      <th>Note</th>
+      <th>User</th>
+      <th>Tutor profile</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tuitions.each do |tuition| %>
+      <tr>
+        <td><%= tuition.hours %></td>
+        <td><%= tuition.city %></td>
+        <td><%= tuition.note %></td>
+        <td><%= tuition.user_id %></td>
+        <td><%= tuition.tutor_profile_id %></td>
+        <td><%= link_to 'Show', tuition %></td>
+        <td><%= link_to 'Edit', edit_tuition_path(tuition) %></td>
+        <td><%= link_to 'Destroy', tuition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tuition', new_tuition_path %>

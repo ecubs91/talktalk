@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails EtsyDemo: development" uuid="9404a6fd-355c-4cb2-816f-02a955326200">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails EtsyDemo: test" uuid="2468ac5d-2653-48a8-bc4d-f03734a26b17">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails EtsyDemo: production" uuid="3bfdc11c-1751-4d5d-a0f4-0e9272deb13c">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

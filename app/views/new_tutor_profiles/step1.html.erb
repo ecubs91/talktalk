@@ -1,0 +1,125 @@
+<div class="container">
+<br><br>
+  <!------------ Header for stepping ----------->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          <ul class="nav nav-tabs nav-justified" style="text-align: center">
+            <li><%= button_to "1", wizard_path(:step1), :class=>"tutorsignup main", :method => :get %><p>학력</p></li>
+            <li><%= button_to "2", wizard_path(:step2), :class=>"tutorsignup", :method => :get %><p>수업과목</p></li>
+            <li><%= button_to "3", wizard_path(:step3), :class=>"tutorsignup", :method => :get %><p>자기소개</p></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <!-----------/ Header for stepping ----------->
+
+
+  <!------------ Body For Step1 ----------->
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-3 col-md-2 col-sm-1"></div>
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <br><br>
+      <%= form_for(@tutor_profile, :url => update_tutor_profile_new_tutor_profiles_path, :method => :post) do |f| %>
+
+          <%= hidden_field_tag "user_step", params[:id] %>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <%= f.label "대학" %>
+              <%#= f.text_field :university, :class => "form-control" %>
+              <%= select_tag "tutor_profile[university]", options_for_select(University.all.map{|u| [u.name.capitalize,u.name]},(@tutor_profile.university rescue nil)), :include_blank => true, :id => "university", :class => "form-control" %>
+              <br>
+              <%= f.label "전공과목" %>
+              <%= select_tag "degree_subject", options_for_select(@all_degree_subjects.map { |s| [s.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),s] },(@tutor_profile.tutor_degree_subjects.first.degree_subject rescue nil)), :include_blank => true, :id => "degree_subjects_select", :style=>"width:100%;", :class => "form-control" %>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              
+              <%= f.label :대학원 %><br>
+              <%= f.text_area :graduate_school, class: "form-control", :rows => 3, placeholder: "예, Columbia/ Medicine" %>
+              <h5>*대학원은 검색되지 않습니다.</h5>
+            </div>
+          </div>
+
+          <br>
+           <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <%= f.label :수업료 %>(시급) 만원 단위<br>
+              <%= f.text_field :hourly_rate, class: "form-control", :value => "4" %>
+            </div>
+             <div class="col-lg-6 col-md-6">
+               <%= f.label "연락처" %>
+               <%= f.text_area :contact_details, :class => "form-control", :row => "4", placeholder: "카카오톡:, 이메일 주소:, 국내 전화번호:, 해외 전화번호" %>
+             </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <!--<br>Korea-->              
+                <%= f.label "국내_수업_위치" %>
+                <%= f.text_field :location, :value => Country.host_location.name, :readonly => true, :class => "form-control" %>
+                <%= select_tag "location_city", options_for_select(Country.host_location_cities, @tutor_profile.location_city), :class => "form-control mrgtop5" %>
+                <%= f.text_field :detailed_location, class: "form-control", placeholder: "상세주소" %>              
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">             
+                <%= f.label "해외_수업_위치" %><br>
+                <%= select_tag :country, options_for_select(@countries.map{|c|[c.name,c.name]}, @tutor_profile.country), :class => "form-control", :onchange=>"change_city(this.value)" %>
+                <div id="asdasdasdasd" class="mrgtop5">
+                  <%= select_tag :location_two, options_for_select(@cities,@tutor_profile.location_two), :include_blank => true, :id => "e4", :style=>"width:100%;", :class => "form-control" %>
+                  <!--<%= f.text_field :detailed_location_two, class: "form-control", placeholder: "상세주소" %>-->
+                </div>
+              
+            </div>
+          </div>
+          <br>
+          <div class="row">  
+            <div class="col-lg-12">
+              <%= f.label "입학/ 재학/ 졸업 증명서" %> (혹은 학생증을 jpg, png 파일로 올려주세요)
+              <%= f.file_field :image2, :class=>"form-control" %>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-6">
+              <%= f.submit "다음", :class => "btn btn-primary pull-right" %>
+            </div>
+          </div>
+
+      <% end %>
+    </div>
+    </div>
+  </div>
+  <!-----------/ Body For Step1 ----------->
+
+</div>
+
+<script>
+    $(document).ready(function() { $("#degree_subjects_select").select2({placeholder: "Select Degree Subject",allowClear: true ,maximumSelectionSize: 1}); });
+//    $(document).ready(function() { $("#e4").select2({placeholder: "Select Town",allowClear: true ,maximumSelectionSize: 1}); });
+    $(document).ready(function() { $("#university").select2({placeholder: "Select University",allowClear: true ,maximumSelectionSize: 1}); });
+</script>
+
+<script>
+  function change_city(country_name){
+    var ans = $.ajax({
+      url: "<%= pages_get_country_set_city_path %>",
+      method: "POST",
+      data: {country_name: country_name},
+      success:function(data){
+        towns = data.cities
+        options = '<option></option>'
+        for(i=0;i<towns.length;i++){
+          options = options + '<option value='+'"'+ towns[i]+'"' +'> ' + towns[i] + '</option>'
+        }
+        $("#asdasdasdasd").html(
+          '<select class="form-control" name="location_two" >'+
+            options+
+          '</select>'
+        )
+      }
+    })
+  }
+</script>

@@ -1,0 +1,164 @@
+<div class="jumbotron tutor">
+  <div class="row">
+    <div class="tutor_profile info">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-2 col-md-2 col-sm-1">
+        <% if @tutor_profile.image2.present? %>
+        <%= image_tag @tutor_profile.image2.url , style:"max-width:100%" %>
+        <% end %>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-3" style="text-align: center">
+          <a href="/tutor_profiles/<%= @tutor_profile.id %>">
+            <div class="round-avatar" style = 'background-image: url(<%= @tutor_profile.image.url:small rescue "default.jpg" %>); background-size: 120px; margin-left:auto; margin-right:auto;'></div>
+          </a>            
+        <br>
+        <!--<div class="star-rating" data-score= <%#= @avg_rating %> ></div> -->
+        <center>
+          <div class="votebox">
+            <div class="row">
+              <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/gurumek/thumb+up.jpg", class: "height25" %> &nbsp;&nbsp;<%= @tutor_profile.my_likes_count %>&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/gurumek/thumb+down.jpg", class: "height25" %> &nbsp;&nbsp;<%= @tutor_profile.my_dislikes_count %>
+            </div>
+          </div>            
+        </center><br>
+        <p><%= "후기 #{@reviews.length} 건" %></p>
+        <!--<h3>시급: <%= @tutor_profile.hourly_rate.to_i %>만원</h3>
+        <br>-->
+        <% if current_user == @tutor_profile.user %>
+          <%= link_to "후기 요청", invite_for_review_tutor_profiles_path, class: "btn btn-success" %><br>
+          <%= link_to '프로필 수정', new_tutor_profiles_path, class: "btn btn-success" %>
+        <% else %> 
+          <button type="button" class="btn btn-primary myButtons" data-toggle="modal" data-target="#messageModal">
+              연락하기
+          </button>
+        <% end %>
+        
+      </div>  
+      <div class="col-lg-4 col-md-6 col-sm-7">
+        <h2><b><%= "#{@tutor_profile.user.first_name}" %></b></h2>   
+        <p><b>대학/전공:</b> <%= "#{@tutor_profile.university}" %>/ <%= @tutor_profile.tutor_degree_subjects.first.degree_subject.capitalize rescue nil %></p>
+        
+        <% if @tutor_profile.graduate_school.present? %>
+          <p><b>대학원/전공:</b> <%= "#{@tutor_profile.graduate_school}" %></p>
+        <% else %>          
+        <% end %>
+        <p><b>국내:</b> <%= @tutor_profile.location_city %> (<%= @tutor_profile.detailed_location %>)</p>
+        <p><b>해외:</b> <%= [@tutor_profile.country,@tutor_profile.location_two].join(" | ") %>(<%= @tutor_profile.detailed_location_two %>) </p>
+        <p><b>수업과목:</b><br>
+        <p1 style="font-size:13px;"><i><%= @tutor_profile.tutor_degree_subjects.first.degree_subject.capitalize rescue nil %></i>: <%= @tutor_profile.tutor_degree_subjects.first.degree_subject_levels.pluck(:level).join(", ") rescue nil %><br>
+          <% lws = @tutor_profile.levelwise_subjects %>
+          <% if lws %>
+            <% lws.each do |k,v| %>
+              <%= "<i>#{k}:</i> #{v.join(', ')} <br>".html_safe unless v.blank? %>
+            <% end %>
+          <% end %>
+        </p1>
+          
+        <p><b>연락처:</b><br><%= @tutor_profile.contact_details %></p>
+      <br>
+      </div>
+      <div class="col-lg-3 col-md-2 col-sm-1">
+        <% @blogs.each do |blog| %>
+          <div class="thumbnail">
+            <%= image_tag blog.image, style:"max-width:100%" %>
+            <div class="caption">
+              <h4><b><%= blog.title %></b></h4>
+              <p style="font-size:12px;"><%= truncate(blog.description, length: 150) %><br><i>By <b><%= "#{@tutor_profile.user.first_name.capitalize}" %></i></p>
+              <p style="text-align:right"><%= link_to '읽기', blog, class:"btn btn-default" %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="row"> 
+  <div class="col-md-8 col-md-offset-2">
+    <table class="table">
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <td><h3>자기소개</h3><p style="font-weight: normal;"><%= h("#{@tutor_profile.about_myself}").gsub(/\n/, '<br/>').html_safe %></p></td>
+        </tr> 
+        <tr>
+          <td><h3>과외경력</h3><p style="font-weight: normal;"><%= h("#{@tutor_profile.teaching_experience}").gsub(/\n/, '<br/>').html_safe %></p></td>
+        </tr>
+      </tbody>
+    </table> 
+    <br>
+  </div>
+</div>    
+  <div class="col-md-8 col-md-offset-2">
+    <% if @reviews.blank? %>
+      <!--<h4>아직 후기가 없습니다.</h4>-->
+    <% else %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-md-3"></th>
+            <th class="col-md-9"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reviews.each do |review| %>
+            <tr>
+              <td>
+                <% if review.vote %>
+                  <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/gurumek/thumb+up.jpg", class: "height25" %>
+                <% else %>
+                  <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/gurumek/thumb+down.jpg", class: "height25" %>
+                <% end %>
+                <h4>                  
+                  <%= "#{review.user.first_name}" %>
+                </h4>     
+                <p style="font-weight: normal;"><%= review.created_at.strftime("%-m/%-d/%y") %></p>      
+              </td>             
+              <td>               
+                <p><%= review.achievement %></p>
+                <p style="font-weight: normal;"><%= h(review.comment).gsub(/\n/, '<br/>').html_safe %></p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>  
+    <% end %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel" style="text-align:center"> <%= @user.first_name %> 선생님께 메세지</h2>
+      </div>
+
+      <%= form_tag({controller: "messages", action: "create"}, method: :post) do %>
+        <div class="modal-body">
+          <%= hidden_field_tag :similar_users, @similar_users.to_json %>
+          <div class="form-group">
+            <%= label_tag "제목" %>
+            <%= text_field_tag :subject, @message_subject, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= label_tag "메세지" %>
+            <%= text_area_tag :body, nil, class: "form-control", placeholder: "'안녕하세요 {선생님 성함}'으로 자동 시작합니다" %>
+          </div>
+          <%= hidden_field_tag :user, @user.id %>
+          <div class="form-group mrgtop10">
+            <p style="font-size: 13px"><%= check_box_tag :accept, nil, :checked => true %> 다른 선생님들께 이 메세지가 전송되는 것에 동의합니다. 이 선생님만을 원하신다면 체크 버튼을 없애주세요.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+          <%= submit_tag '메세지 전송', class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

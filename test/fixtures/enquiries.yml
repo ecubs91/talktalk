@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  subject: MyString
+  level: MyString
+  location: MyString
+  duration: MyString
+  start_date: MyString
+  tuition_fee: MyString
+  note: MyText
+  tutor_availablity: false
+  tutorial_request: false
+
+two:
+  subject: MyString
+  level: MyString
+  location: MyString
+  duration: MyString
+  start_date: MyString
+  tuition_fee: MyString
+  note: MyText
+  tutor_availablity: false
+  tutorial_request: false

@@ -1,0 +1,23 @@
+<% unless params[:controller]=="pages" && ["our_stars", "services_for_schools", "free_consultation", "admissions_test", "written_work"].include?(params[:action]) %>
+  <br><br><br>
+<% end %>
+</div><!-- end of container from layout/application -->
+<div class="footer">    
+  <div class="row">
+  <div class="col-md-8 col-md-offset-2">           
+    <p><%= link_to "그루미 소개", pages_about_path %> &nbsp;|&nbsp; <%= link_to "이용방법", pages_how_it_works_path %> &nbsp;|&nbsp; <%= link_to "온라인 수업", pages_online_tuition_path %> &nbsp;|&nbsp; <%= link_to "연락처", contacts_path %></p>
+      <br>
+      </div><!-- end of col-md-8 -->
+  </div>
+  <div class="copyright">
+    
+    <a href="https://www.facebook.com/pages/GuruMe-%EA%B7%B8%EB%A3%A8%EB%AF%B8/835390749864967?fref=ts" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/fb.png" border="0" class="img-circle" style="margin:5px; width:70px"></a>
+    <!--<a href="https://www.facebook.com/pages/GuruMe-%EA%B7%B8%EB%A3%A8%EB%AF%B8/835390749864967?fref=ts" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/%ED%8A%B8%EC%9C%84%ED%84%B0.png" border="0" class="img-circle" style="margin:5px; width:70px"></a>-->
+    <a href="http://blog.naver.com/ecubs91" target="_blank" align="left"><img src="https://s3-ap-northeast-1.amazonaws.com/gurumek1/pages/sns+icon/%EB%84%A4%EC%9D%B4%EB%B2%84+%EB%B8%94%EB%A1%9C%EA%B7%B8.png" border="0" class="img-circle" style="margin:5px; width:70px"></a> 
+    <h3>그루미</h3>
+    <p>Copyright © GuruMe All Rights Reserved</p>
+  </div>
+</div> <!-- end of footer -->
+
+    
+

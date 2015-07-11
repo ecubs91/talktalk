@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+
+      <h3>Message <%= @user.first_name %> <%= @user.last_name %></h3>
+      <br>
+      <%= form_tag({controller: "messages", action: "create"}, method: :post) do %>
+
+      <%= hidden_field_tag :similar_users, @similar_users.to_json %>
+      <div class="form-group">
+        <%= text_field_tag :subject, nil, class: "form-control", placeholder: "Subject, e.g. looking for tuition on Geography admissions to ..." %>
+      </div>
+      <div class="form-group">
+        <%= text_area_tag :body, nil, class: "form-control", placeholder: "Body, e.g. the current status of my application is ... I'm looking for help with ..." %>
+      </div>
+      <%= hidden_field_tag :user,  params[:user] %>
+      <div class="form-group">
+        <%= check_box_tag :accept %> I agree with my message being sent to other tutors. Please untick if you only want the message sent to this particular tutor.
+      </div> 
+      
+      <br>
+      <%= submit_tag 'Send Message', class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+      

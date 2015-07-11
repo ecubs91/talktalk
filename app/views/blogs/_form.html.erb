@@ -1,0 +1,67 @@
+<%= form_for(@blog) do |f| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+      <% @blog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= f.label :제목 %><br>
+            <%= f.text_field :title, class:"form-control" %>
+          </div>
+        </div>
+        <div class="col-md-12">       
+          <div class="form-group">
+            <%= f.label :학력 %> (e.g. 옥스퍼드 생화학 2010-2014)<br>
+            <%= f.text_field :education, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-md-12">       
+          <div class="form-group">
+            <%= f.label :블로그_설명 %> (이 부분은 블로그 Thumbnail에 나올 부분으로서 밑에 공간을 다 채울 수 있을 정도로 길어야 합니다.)<br>
+            <%= f.text_area :description, class: "form-control", :rows => "5"  %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= f.label :블로그_내용 %><br>
+            <%= f.text_area :content, class: "form-control ckeditor" %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= f.label :대학 %><br>
+            <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "Choose a cateogory"}, {class: "btn btn-default dropdown-toggle"} %>
+          </div>
+        </div>
+        <div class="col-md-12">
+        <div class="form-group">
+          <%= f.label :블로그_이미지 %>
+          <%= f.file_field :image, class: "form-control" %>
+        </div>
+        </div>
+        <div class="col-md-12">
+          <div class="actions">
+            <%= f.submit "올리기", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $('.ckeditor').ckeditor({
+    // optional config
+  });
+</script>

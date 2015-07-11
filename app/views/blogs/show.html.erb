@@ -1,0 +1,70 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-2" style="background:#f1f1f1"></div>
+  <div class="col-md-8">
+    <p id="notice"><%= notice %></p>
+    <br>
+    <h2><%= @blog.title %></h2>
+    <div class="row">
+      <div class="col-md-1">
+        <% if @blog.user.tutor_profile.present? %>
+          <%= link_to tutor_profile_path(@tutor_profile.id) do %>
+          <div class="blogavatar" style = "background-image: url(<%= @tutor_profile.image.url(:small) rescue 'default.jpg' %>); background-size: 60px; text-align:left"></div>
+          <% end %>
+        <% else %>
+          <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/klogofinalfb.png" style="img-circle; width: 40px; height: 40px;" %>
+        <% end %>      
+      </div>
+      <div class="col-md-11">
+        <p>
+          <% if @blog.user.tutor_profile.present? %>
+            <%= @user.first_name %> <%= @user.last_name %>, <i><%= @blog.education %></i> 
+          <% else %>
+            그루미  
+          <% end %>
+          <br>
+            <%= @blog.created_at.strftime("%e %b %Y") %>
+        </p>
+      </div>
+    </div>
+    <br>
+    <!--<p><%#= h(@blog.content).gsub(/\n/, '<br/>').html_safe %></p>-->
+    <p><%= @blog.content.html_safe %></p>
+    <div class="sns">
+      <h4>공유하기</h4>
+      <%= social_share_button_tag(@blog.title, 'data-facebook-title' => 'TheTitleForTwitter', :popup => "true") %>
+      <br>
+    </div>
+    <!--<%= link_to "Write Comment", new_blog_reply_path(@blog), class: "btn btn-primary" %>-->
+    <br>
+    <% if @replies.blank? %>
+    <% else %>
+      <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+          <% @replies.each do |reply| %>
+            <tr>
+              <td>
+                <h4>
+                  <%= reply.user.first_name %>
+                </h4>     
+                <p style="font-weight: normal;"><%= reply.created_at.strftime("%-m/%-d/%y") %></p>      
+              </td>
+              <td>              
+                <p style="font-weight: normal;"><%= h(reply.comment).gsub(/\n/, '<br/>').html_safe %></p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>  
+    <% end %>
+
+    <p>
+      <% if current_user == @blog.user %>
+        <%= link_to '수정', edit_blog_path(@blog), class: "btn btn-default" %>
+      <% end %> 
+      <%= link_to '메인으로 돌아가기', blogs_path, class: "btn btn-default" %></p>
+  </div>
+  <div class="col-md-2"></div>
+</div>

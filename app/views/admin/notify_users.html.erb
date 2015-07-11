@@ -1,0 +1,40 @@
+<div class="container">
+
+
+
+  <div class="row">
+
+    <div class="col-lg-3"></div>
+
+    <div class="col-lg-6">
+
+      <h3>Send Mail Notifications</h3><br>
+
+      <%= form_for "", :url => admin_send_mail_to_users_path do |f|  %>
+
+        <div class="form-group">
+          <%= f.text_field :subject, :class => "form-control", :placeholder => "Subject.." %>
+        </div>
+
+        <div class="form-group">
+          <%= f.text_area :message, :class => "form-control", :rows => "8" %>
+        </div>
+
+        <div class="form-group">
+          <b>To whom you want to send message</b><br>
+          <%= f.radio_button :selection_type, "all_users", :checked => true %> All Users <br>
+          <%= f.radio_button :selection_type, "users_with_tutor_profile" %> Users Having Tutors profile <br>
+          <%= f.radio_button :selection_type, "users_without_tutor_profile" %> Users without Tutor profile
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Send", :class => "btn btn-primary" %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

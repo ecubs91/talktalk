@@ -1,0 +1,111 @@
+<%= form_for(@tutor_profile, :html => { :multipart => true }) do |f| %>
+  <% if @tutor_profile.errors.any? %>
+    <div id="error_explanation">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h2><%= pluralize(@tutor_profile.errors.count, "error") %> prohibited this tutor_profile from being saved:</h2>
+
+      <ul>
+      <% @tutor_profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="stripe_error" class="alert alert-danger" style="display:none">
+    <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+  </div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :university %><br>
+          <%= f.text_field :university, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :location %><br>
+          <%= f.text_field :location, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :degree_subject %><br>
+          <%= f.text_field :degree_subject, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :teaching_subject %><br>
+          <%= f.text_field :teaching_subject, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :teaching_subject_2 %><br>
+          <%= f.text_field :teaching_subject_2, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :teaching_subject_3 %><br>
+          <%= f.text_field :teaching_subject_3, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+   <div class="form-group">
+     <%= f.label :hourly_rate %><br>
+     <%= f.text_field :hourly_rate, class: "form-control" %>
+   </div>
+   <div class="form-group">
+     <%= f.label :subject_level %><br>
+     <%= f.text_field :subject_level, class: "form-control", placeholder: "GCSE, ALevel, IB or University Entrance?(multiple possible)" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :about_myself %><br>
+    <%= f.text_area :about_myself, class: "form-control" %>
+  </div>
+   <div class="form-group">
+    <%= f.label :tutoring_approach %><br>
+    <%= f.text_area :tutoring_approach, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :teaching_experience %><br>
+    <%= f.text_area :teaching_experience, class: "form-control" %>
+  </div>     
+  <div class="form-group">
+    <%= f.label :extracurricular_interests %><br>
+    <%= f.text_area :extracurricular_interests, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :image %><br>(Please use a zoomed in & square image or ask our support team to crop it for you)<br>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+  
+  <h1>Bank Account Information</h1>
+
+  <div class="form-group">
+    <%= label_tag :country %>
+    <%= text_field_tag :country, nil, { :name => nil, :'data-stripe' => "country", class: "form-control" } %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :sort_code %>
+    <%= text_field_tag :sort_code, nil, { :name => nil, :'data-stripe' => "sortCode", class: "form-control" } %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :account_number %>
+    <%= text_field_tag :account_number, nil, { :name => nil, :'data-stripe' => "accountNumber", class: "form-control" } %>
+  </div>
+    
+    <div class="actions">
+    <%= f.submit "Create Tutor Profile", class: "btn btn-success" %>
+  </div>
+</div>
+</div>
+
+
+  
+<% end %>

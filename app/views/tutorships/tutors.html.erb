@@ -1,0 +1,33 @@
+<div class="centre">
+  <h2>My Tutor History</h2>
+</div>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <th class="center">Student Name</th>
+    <th class="center">Starting Date</th>
+    <th class="center">Duration</th>
+    <th class="center">Status</th>
+    <th class="center">Bill</th>
+
+  </tr>
+  <% @tutorships.each do |tutorship| %>
+    <tr>
+      <td class="center"><% user = User.find(tutorship.user_id) %><%= user.first_name %></td> 
+      <td class="center"><%= tutorship.starting_date %></td>  
+      <td class="center"><%= tutorship.duration %></td>  
+      <td class="center">
+        Pending<!-- the status has to change depending on time period written in tutorial request form -->
+        in process<br><!-- if tutor's status is 'I'm available' and request is made -->
+        complete <!-- at the end of tutorship duration -->
+      </td>
+      <td class="center">
+        Bill Now
+        <%= link_to "Accept", tutorship_path, :method => :patch %>
+  
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br>

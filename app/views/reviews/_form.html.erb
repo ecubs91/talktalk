@@ -1,0 +1,38 @@
+<%= form_for([@tutor_profile, @review]) do |f| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h4>
+
+      <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<!--<p style="font-size: 15px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; margin-bottom: 5px; color: #333333; line-height: 1.428571429;"><b>별점</b></p>-->
+      <!--<div id="star-rating"></div><br>-->
+
+      <div class="form-group">
+        <%= label_tag :투표 %><br>
+        <%= f.radio_button :vote, true %>
+        <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/gurumek/thumb+up.jpg", class: "height25" %>
+        &nbsp;&nbsp; &nbsp;&nbsp;
+        <%= f.radio_button :vote, false %>
+        <%= image_tag "https://s3-ap-northeast-1.amazonaws.com/gurumek/thumb+down.jpg", class: "height25" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :성취 %> <br>
+        <%= f.text_field :achievement, class: "form-control", placeholder: "예, AP 5점, 에이레벨 A*, 대학 합격 등" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :코멘트 %><br>
+        <%= f.text_area :comment, class: "form-control", placeholder: "어떤 토픽에 중점을 두었나요? 수업이 만족스러웠나요? 선생님은 만족스러웠나요?", :rows => "4" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "확인", class: "btn btn-primary" %>
+      </div>
+
+<% end %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  hours: 1
+  city: MyString
+  note: MyText
+  user_id: 1
+  tutor_profile_id: 1
+
+two:
+  hours: 1
+  city: MyString
+  note: MyText
+  user_id: 1
+  tutor_profile_id: 1

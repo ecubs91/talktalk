@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tutor_degree_subject_id: 
+  level: MyString
+
+two:
+  tutor_degree_subject_id: 
+  level: MyString

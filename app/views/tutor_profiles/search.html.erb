@@ -1,0 +1,173 @@
+<div class="searchresults">
+  <div class="row">
+    <div class="col-md-1 col-sm-2 col-xs-1"></div>
+    <div class="col-md-7 col-sm-7 col-xs-10">
+      <h2>
+        <% if @search_levels.present? %>
+        <span style="font-size:45px; color:white"><%= @search_levels.to_sentence %></span> <span style="font-size:45px; color:white"><%= @search_subject.capitalize %></span> 선생님들을 만나보세요!
+        
+        <% else %>
+        <span style="font-size:45px; color:white"><%= @search_university %> <%= @search_subject %></span> 선생님들을 만나보세요!
+        <% end %>
+      </h2>
+    </div>
+  </div>
+</div>
+<div class="container profile">
+  <br>  
+<div class="row">
+  <div class="col-md-3 col-sm-4" style="border-right: 2px solid #eee">
+    <h4><b><%= @search_university %> <%= @search_subject %>자료 </b>&nbsp;<span class="badge">New</span> </h4>
+    <h4>      
+      · <%= link_to "칼리지 에세이", pages_college_essays_path, class: "link" %><br>
+      · <%= link_to "자기소개서", pages_personal_statements_path, class: "link" %> 
+    </h4>
+    <hr>
+    <%= form_tag search_tutor_profiles_path, method: :get, class: "center" do %>
+        <div class="row">
+          <div class="col-lg-10">
+            <%= label_tag "수업 과목" %>
+            <%= select_tag :search, options_for_select(@all_tutors.map {|tt| [tt.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),tt]}.insert(0, ["수업과목",nil])), :id => "e1", :style=>"width:100%;", :class => "form-control" %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-10">
+            <%= label_tag "희망 대학" %>
+            <%= select_tag :search_university, options_for_select(University.all.pluck(:name),(@tutor_profile.university rescue nil)), :include_blank => true, :id => "university", :class => "form-control" %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-10"  style="margin-top: 10px;">
+            <%= label_tag "수업 위치" %>
+            <%= select_tag :search_country, options_for_select([[" 나라 선택",""]]+@countries.pluck(:name)), :class => "form-control", :onchange=>"get_country_set_city(this.value)" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-10" style="margin-top: 10px;">
+            <div id="search_city_select">
+              <%= select_tag :search_city, options_for_select([[" 도시 선택",""]]), :id => "e4", :class => "form-control" %>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-10">
+            <div onclick="open">
+              <h5>대입 준비</h5>
+            </div>
+            <div id="universityAdmissionLevels">
+              <!---------------University level---------------->
+                <% Level.university_admission_levels.each do |ual| %>
+                  <%= check_box_tag "level[]", ual %> <%= ual %><br>
+                <% end %>
+              <!---------------/University level---------------->
+            </div>
+            <div id="examPreparation">
+              <h5>시험 준비</h5>
+            </div>
+            <div id="examPreparationLevel">
+              <!---------------Exam Preparation---------------->
+                <% Level.exam_preparation_levels.each do |epl| %>
+                  <%= check_box_tag "level[]", epl %> <%= epl %><br>
+                <% end %>
+              <!---------------/Exam Preparation---------------->
+            </div>
+          </div>
+        </div>        
+        <br>
+        <div class="row">
+          <div class="col-lg-10">
+            <%= submit_tag "선생님 찾기", :name => nil, :class => "btn btn-primary pull-right" %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+
+  <!------------- Right Panel for search results------------>
+  <% @all_profiles =  @tutor_profiles.collect{|tp|tp.id } %>
+
+  <div class="col-md-9 col-sm-7">
+    <% if @tutor_profiles.length > 0 %>
+      <% @tutor_profiles.each do |tutor_profile| %>
+        <div class="row">
+          <div class="col-md-2 col-sm-4 col-xs-12">
+            <%= link_to tutor_profile_path(:id => tutor_profile.id, :similar_profiles => @all_profiles-[tutor_profile.id], :search_levels => @search_levels, :search_subject => @search_subject) do %>
+              <div class="round-avatar" style = 'background-image: url(<%= tutor_profile.image.url(:small) rescue "/assets/default.jpg" %>); background-size: 120px; margin-left:auto; margin-right:auto;'></div>
+            <% end %>
+            <% if tutor_profile.user==current_user %>
+              <%= link_to '프로필 없애기', tutor_profile, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </div>
+          <div class="col-md-6 col-sm-8 col-xs-12">
+            <%= link_to tutor_profile_path(:id => tutor_profile.id, :similar_profiles => @all_profiles-[tutor_profile.id], :search_levels => @search_levels, :search_subject => @search_subject) do %>
+            <h3><%= "#{tutor_profile.user.first_name}" %></h3>
+            <p>
+              대학/전공: <%= tutor_profile.university %>/ <%= tutor_profile.tutor_degree_subjects.first.degree_subject.capitalize unless tutor_profile.tutor_degree_subjects.blank?  %><br> 
+              국내: <%= tutor_profile.location_city %> <br>
+              해외: <%= [tutor_profile.country,tutor_profile.location_two].join(" | ") %><br>
+              커리큘럼:<% lws = tutor_profile.levelwise_subjects %>
+             <% if lws %>
+            <% lws.each do |k,v| %>
+              <%= "#{k},".html_safe unless v.blank? %>
+            <% end %>
+          <% end %>
+            <br>
+              수업과목: <%= tutor_profile.tutor_teaching_subjects.pluck(:teaching_subject).map { |ts| ts.capitalize}.join(", ") %>
+            </p>
+            <p style="font-size: 14px"><%= truncate(tutor_profile.about_myself, :length => 120) %></p>
+            <div class="truncate"></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>죄송합니다 아직 요청하신 전공, 학교, 위치 출신 선생님이 안계십니다.</h2> 
+          <h3>저희 <%= link_to "그루미 팀", contacts_path, class: "link" %>에게 원하시는 선생님 학교, 전공 그리고 위치를 알려주시면 빠른 시일 내에 해당 선생님을 찾아서 연락 드리겠습니다.</h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+       
+<br>
+<br>
+</div>
+
+<style>
+    .filter {
+        color: black
+    }
+    .filter:hover {
+        color: black
+    }
+</style>
+
+<script>
+  $(document).ready(function() { $("#e1").select2({placeholder: "Select subject", allowClear: true}); });
+</script>
+
+<script>
+  function get_country_set_city(country_name){
+    $.ajax({
+      url: "<%= pages_get_country_set_city_path %>",
+      method: "POST",
+      data: {country_name : country_name},
+      success:function(data){
+        cities = data.cities
+        options = '<option></option>'
+        for(i=0;i<cities.length;i++){
+          options = options + '<option value='+'"'+ cities[i]+'"' +'> ' + cities[i] + '</option>'
+        }
+        $("#search_city_select").html(
+            '<select class="form-control" name="search_city" >'+
+            options+
+            '</select>'
+        )
+      }
+    })
+  }
+</script>

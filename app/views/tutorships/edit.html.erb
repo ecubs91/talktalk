@@ -1,0 +1,65 @@
+<%= form_for(@tutorship) do |f| %>
+  <% if @tutorship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tutorship.errors.count, "error") %> prohibited this tutorship from being saved:</h2>
+
+      <ul>
+      <% @tutorship.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <h1>Payment</h1>
+    <p>I agree to the following charge being made for tutorship I have requested.</p><br>
+    <p>Tutorship with <% tutor_profile = TutorProfile.find(@tutorship.tutor_profile_id)
+      user = User.find(tutor_profile.user_id) %><b style="font-size: 20px"><%= user.first_name %> <%= user.last_name %></b> for tuition fee of <b style="font-size: 20px">£<%= @tutorship.tuition_fee %></b>
+    </p><br>
+      <div id="stripe_error" class="alert alert-danger" style="display:none">
+        <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+      </div>
+       <div class="form-group">
+          <div class="row">
+            <div class="col-md-8">
+              <%= label_tag :card_number, "Credit Card Number" %>
+              <%= text_field_tag :card_number, nil, { :name => nil, :'data-stripe' => "number", class: "form-control" } %>
+            </div>
+            <div class="col-md-4">
+              <%= label_tag :card_code, "CVC" %>
+              <%= text_field_tag :card_code, nil, { :name => nil, :'data-stripe' => "cvc", class: "form-control" } %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag nil, "Expiration Date" %>
+          <div class="row">
+            <div class="col-md-3">
+              <%= select_month nil, { use_two_digit_numbers: true }, { :name => nil, :'data-stripe' => "exp-month", class: "form-control" } %>
+            </div>
+            <div class="col-md-3">
+              <%= select_year nil, { start_year: Date.today.year, end_year: Date.today.year+10 }, { :name => nil, :'data-stripe' => "exp-year", class: "form-control" } %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Complete Order", class: "btn btn-success" %>
+        </div>
+      <% end %> 
+  </div>
+  </div>
+
+
+      <br><br>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+          <div class="right">
+          <%= link_to 'Review tutorship before payment', @tutorship, class: "btn btn-primary" %>
+          </div>
+        </div>
+        </div>
+

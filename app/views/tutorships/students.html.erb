@@ -1,0 +1,53 @@
+<div class="centre">
+  <h2>Student Page</h2>
+</div>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <th class="center">Tutor</th>
+    <th class="center">Starting Date</th>
+    <th class="center">Status</th>
+    <th class="center">Payment</th>
+    <th class="center">Review</th>
+    <th class="center">Accept</th>
+    
+
+
+  </tr>
+   <!-- using the tutor_id from tutorial_reqeust table, find user_id to find user first and last names -->
+  <!--
+    @tutor = Tutor.find(tutorial_request.tutor_id)
+    @user = User.find(tutor.user_id) 
+ -->
+
+  <% @tutorships.each do |tutorship| %>
+    <tr>
+      <td class="center"><% 
+  tutor_profile = TutorProfile.find(tutorship.tutor_profile_id) 
+  user = User.find(tutor_profile.user_id) 
+  %>
+        <%= user.first_name %> </td>
+      <td class="center"><%= tutorship.starting_date%></td>   
+      <td class="center">
+        Pending<!-- the status has to change depending on time period written in tutorial request form -->
+        in process<br><!-- if tutor's status is 'I'm available' and request is made -->
+        complete <!-- at the end of tutorship duration -->
+      </td>
+      <td class="center">
+        
+        <%= link_to "Pay Now",  edit_tutorship_path(tutorship), data: { no_turbolink: true } %>
+        
+      </td>
+      <td class="center">
+        write a review <!-- write a review function becomes active if status is complete, direct to new_tutor_review_path where the tutor ID matches otherwise, review field is left blank-->
+      </td>
+      <td class="center">
+        <%= link_to "Accept",  accept_tutorships_path, method: :put %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>
+
+<br>
+

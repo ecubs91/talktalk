@@ -1,0 +1,42 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+      <p>
+        <h3><%= @question.question %></h3>  
+      </p>
+      <p>
+        <%= h(@question.text).gsub(/\n/, '<br/>').html_safe %>
+      </p>
+      <br>
+      <%= form_for "", :url => create_question_comment_questions_path, :method=>:post do |f| %>
+          <%= f.hidden_field "id", :value => @question.id %>
+          <h4><b>Post a comment</b></h4> <%= f.text_area "comment_content", :class=> "form-control", :rows => "4"  %><br>
+  <%= f.submit "Submit", :class=> "btn btn-danger" %>
+        <br><br>
+        <% end %>
+        <table>
+          <tbody>
+             <% @all_comments.each do |comment| %>
+                <tr>
+                  <td>
+                    <% @user = User.find(comment.user_id) %>
+                    <p>Posted by <b><%= @user.first_name %></b></p>
+                    <p><%= comment.created_at.strftime("%-m/%-d/%y") %></p>
+                    <p><%= h(comment.body).gsub(/\n/, '<br/>').html_safe %> </p>
+                    
+                    <%#= form_for "", :url => create_question_comment_reply_questions_path, :method=>:post do |f| %>
+                    <%#= f.hidden_field "id", :value => @question.id %>
+                    <%#= f.text_area "comment_reply_content", class: "form-control"  %>
+
+         
+             <%# end %>
+                  </td>
+                </tr>
+             <% end %>
+          </tbody>
+        </table>      
+    <p5><%= link_to 'Edit', edit_question_path(@question), class: "linkbutton" %> | <%= link_to 'Back', questions_path, class: "linkbutton" %></p5>
+  </div>
+</div>
+
+

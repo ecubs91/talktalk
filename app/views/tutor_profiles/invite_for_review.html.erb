@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+      <%= form_tag(send_invitation_for_review_tutor_profiles_path, :method => :post ) do %><br>
+      <h1>후기 요청하기</h1>
+      <h4><span class="badge">참고</span> 아래 항목을 작성하시면 자동으로 사이트네에서 입력하신 학생 이메일주소로 이메일이 발송되는데 이 이메일 안에 후기 작성이 가능한 아래 그림과 같은 링크가 들어있습니다.</h4>
+      <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/requestreview.jpg" class="img-responsive" >
+      <br>
+        <%= hidden_field_tag :url, @url %>
+        <div class="row">
+          <div class="col-lg-12">
+            <%= label_tag "학생 이메일 주소 " %>
+            <%= text_field_tag :email, nil, :class => "form-control pull-left" %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-12">
+            <%= label_tag "메세지"%>          
+            <h5>아래 메세지는 수정이 가능합니다.</h5>
+            <%= text_area_tag :message, "그루미라는 과외 중개 웹사이트에 선생님으로 가입을 햇어~ 그루미에 있는 쌤 프로필에 후기 목록이 있는데 여기에 쌤과 했던 수업에 대한 후기를 남겨주면 많은 도움이 될거 같은데 가능할까? 아래 링크를 따라가서 로그인을 하고 후기 작성을 하면 끝!^^", :class => "form-control", :rows => 5 %>           
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-2 col-lg-offset-10">
+            <%= submit_tag "전송", :class => "btn btn-primary" %>
+          </div>
+        </div>
+
+    <% end %>
+
+    </div>
+  </div>
+</div>

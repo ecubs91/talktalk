@@ -1,0 +1,88 @@
+<div class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">  
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="<%= root_path %>">
+        <div class="navbar-brand">
+          <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/klogofinal.png" style="height:45px">
+        </div>
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-collapse collapse">       
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user.present? %>
+          <% if current_user.authority == "admin" %>
+            <li><%= link_to "Notify Users", admin_notify_users_path %></li>
+          <% end %>
+        <% end %>
+        <li><%= link_to "선생님 등록", pages_become_a_tutor_path %></li>
+        <li><%= link_to "선생님 찾기",tutor_profiles_path %></li>
+        
+        <!--<li><a href="<%= pages_about_path %>">인사말씀</a></li>-->
+        <!--<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">서비스 소개</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to "Ask Tutors", questions_path %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Students & Parents", pages_students_parents_path %></li>
+            <li><%= link_to "Services for Schools", pages_services_for_schools_path %></li>
+            <li><%= link_to "Partners", pages_partners_path %></li>
+          </ul>
+        </li>-->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">미국-영국 대입 자료실 &nbsp;<span class="badge">HOT</span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to "칼리지 에세이", college_essays_path %></li>
+            <li><%= link_to "자기소개서", pages_personal_statements_path %></li>
+            <!--<li><%= link_to "Written Work", pages_written_work_path %></li>-->
+            <!--<li><%= link_to "인터뷰 준비", pages_preparing_interviews_path %></li>-->
+            <li><%= link_to "대학생들의 입시 경험담", blogs_path %></li>
+            <li><%= link_to "장학금 지원 (Coming Soon)", root_path %></li>
+          </ul>
+        </li>
+        <!--<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">무료 자료실 &nbsp;&nbsp;<span class="badge">HOT</span></a>
+          <ul class="dropdown-menu" role="menu">           
+            <li><%= link_to "추천 도서", pages_suggested_readings_path %></li>
+            <li><%= link_to "인터뷰 기출문제", pages_oxbridge_interview_questions_path %></li>            
+          </ul>
+        </li> -->
+        
+                         <% if user_signed_in? %>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <%= current_user.first_name %>님 <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                            <% if current_user.tutor_profile.present? %>
+                              <li><%= link_to "내 프로필", tutor_profile_path(current_user.tutor_profile.id) %></li>
+                              <li><%= link_to "후기 요청", invite_for_review_tutor_profiles_path %></li>
+                            <% end %>
+                              <!--<li><%= link_to "수업 메뉴", mytuition_path %></li>-->
+                              <li><%= link_to conversations_path, data: { no_turbolink: true } do %> <i class="glyphicon glyphicon-envelope"></i> 메세지<% end %></li>
+                              <li><%= link_to edit_user_registration_path, data: { no_turbolink: true } do %>
+                              <i class="glyphicon glyphicon-wrench"></i> 계정관리
+                               <% end %></li>
+                              <li><%= link_to "로그아웃", destroy_user_session_path, method: :delete %></li>           
+                            </ul>                            
+                          </li>  
+                           <% else %>
+                          <li class="nounderline"><%= link_to "회원가입", new_user_registration_path %></li>
+                          <li class="nounderline"></i><%= link_to "로그인", new_user_session_path %></li>
+                        <% end %>  
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</div>  
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>

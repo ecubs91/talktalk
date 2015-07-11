@@ -1,0 +1,13 @@
+<h2> looping through conversation.messages </h2>
+<% conversation.messages.order('created_at DESC').each do |msg |%>
+   
+   <% if msg.sender == current_user %>
+     <%= link_to 'You', msg.sender(msg.sender) %> <%= msg.body %>
+   <% else %> <br>
+     <%= link_to msg.sender.name, msg.sender(msg.sender) %> <%= msg.body %> <br>
+   <% end %>
+
+  <% end %>
+
+<br>
+

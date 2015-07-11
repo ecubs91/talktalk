@@ -1,0 +1,68 @@
+class DegreeSubject < ActiveRecord::Base
+
+  scope :get_all_degree_subjects, -> {pluck(:name)}
+
+  def self.make_entries
+    DegreeSubject.destroy_all
+    input_ary = ["Archaeology and Anthropology",
+    "Architecture",
+    "Biochemistry",
+    "Biological Sciences",
+    "Biomedical Sciences",
+    "Chemistry",
+    "Chemical Engineering",
+    "Classical Archaeology and Ancient History",
+    "Classics",
+    "Classics and English",
+    "Classics and Modern Languages",
+    "Classics and Oriental Studies",
+    "Computer Sciences",
+    "Computer Sciences and Philosophy",
+    "Earth Sciences (Geology)",
+    "Economics",
+    "Economics and Management",
+    "Education",
+    "English",
+    "English Language and Literature",
+    "English and Modern Languages",
+    "Engineering",
+    "Fine Art",
+    "History",
+    "History and Economics",
+    "History and English",
+    "History and Modern Languages",
+    "History and Politics",
+    "History of Art",
+    "Human Sciences",
+    "Human, Social and Political Sciences",
+    "Geography",
+    "Land Economy",
+    "Law",
+    "Linguistics",
+    "Management Studies",
+    "Manufacturing Engineering",
+    "Materials Science",
+    "Mathematics",
+    "Mathematics and Computer Science",
+    "Mathematics and Statistics",
+    "Medicine",
+    "Modern Languages",
+    "Modern languages and Linguistics",
+    "Music",
+    "Natural Sciences",
+    "Oriental Studies",
+    "Philosophy, Politics and Economics (PPE)",
+    "Philosophy and Theology",
+    "Physics",
+    "Physics and Philosophy",
+    "Psychology (Experimental)",
+    "Psychology, Philosophy and Linguistics",
+    "Psychological and Behavioural Sciences",
+    "Theology and Religion",
+    "Theology and Religious Studies",
+    "Theology and Oriental Studies"]
+    input_ary.each do |deg_sub|
+      DegreeSubject.create(:name => deg_sub.downcase)
+    end
+  end
+end
