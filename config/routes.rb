@@ -71,52 +71,12 @@ Etsydemo::Application.routes.draw do
     resources :enquiries 
     
     resources :users
-  
-
-
-
-
   get "pages/about"
   get 'mytuition' => "tuitions#mytuition"
   get "pages/inbox"
-  get "pages/resources"
-  get "pages/personal_statements"
-  get "pages/college_essays"
-  get "pages/oxbridge_interview_questions"
-  get "pages/suggested_readings"
-  get "pages/admissions_facts"
-  get "pages/writing_personal_statements"
-  get "pages/admissions_test"
-  get "pages/written_work"
-  get "pages/oxbridge_interviews"
-  get "pages/students_parents"
-  get "pages/services_for_schools"
-  get "pages/partners"
-  get "pages/online_tuition"
   get "pages/how_it_works"
-  get "pages/terms_and_conditions"
-  get "pages/terms_and_conditions/for_tutors"
-  get "pages/terms_and_conditions/for_students"
-  get "pages/become_a_tutor"
-  get "pages/referral_scheme"
-  get "pages/tutor_policy"
-  get "pages/free_consultation"
-  get "pages/our_stars"
-  get "pages/recruiting"
   get "pages/require_sign_in"
-  get "pages/writing_college_essays"
-  get "pages/preparing_interviews"
-  get "pages/gurus_interviews"
-  get "pages/oxford_biochemistry"
-  get "pages/oxford_biochemistry_interview"
-  get "pages/oxford_physics"
-  get "pages/cambridge_maths_interview"
-  get "pages/oxford_economics_management"
-  get "pages/cambridge_engineering"
-  get "pages/oxford_law"
-  get "pages/princeton_physics"
-  get "pages/seoul_medicine"
-  get "pages/scholarships"
+
   
   post "pages/get_town_from_country_for_step_1"
   post "pages/get_country_set_city"

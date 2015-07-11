@@ -3,60 +3,14 @@
     <div class="col-md-3 col-sm-2 col-xs-12">
     </div>
     <div class="col-md-6 col-sm-8">
-      <h2>유학생들을 위한 과외 공간 그루미<br>미국, 홍콩, 영국, 호주, 싱가폴 +</h2>      
+      <h2></h2>      
       <div class="row">
           <div class="col-md-6 col-sm-6">
             <h5 style="color:white">수업 과목</h5>
              <%= form_tag search_tutor_profiles_path, :method=> :get, :class=> "center" do %>
       <%= select_tag :search, options_for_select(@all_tutors.map {|tt| [tt.split.map{ |w| ['and','or','of'].include?(w) ? w : w.capitalize}.join(' '),tt]}), :include_blank => true, :id => "e1", :class => "form-control indexsearchbox font22 pull-left" %>
           </div>
-          <div class="col-md-6 col-sm-6">
-             <h5 style="color:white">희망 대학</h5>
-            <%= select_tag :search_university, options_for_select([["",""]]+University.all.pluck(:name),(@tutor_profile.university rescue nil)), :include_blank => true, :id => "university", :class => "form-control indexsearchbox", placeholder: "희망대학" %>
-          </div>
-      </div>
-      <h5 style="color:white;">수업 위치</h5>
-        <div class="row">          
-          <div class="col-md-6 col-sm-6">
-            <div id="search_country_select">             
-              <%= select_tag :search_country, options_for_select([[" 나라 선택",""]]+@countries.pluck(:name)), :onchange => "get_country_set_city(this.value)", :id => "e2", :class => "form-control indexsearchbox" %>
-            </div>
-          </div>          
-          <div class="col-md-6 col-sm-6">
-            <div id="search_city_select">             
-              <%= select_tag :search_city, options_for_select([[" 도시 선택",""]]), :id => "e4", :class => "form-control indexsearchbox" %>
-            </div>
-          </div>
-        </div>
-         
-           <div class="level" style="color:#ffffff">
-             <div class="col-md-6 col-sm-6 mrgtop10">
-               <div id="ua_list_head" style="cursor: pointer; font-weight: bolder;">
-                 <span style="font-size: 16px;">대입 준비</span>
-                 <span class="collapse_status_button_1" style="font-size: 16px;">&nbsp;&nbsp;+</span>
-                 <span class="collapse_status_button_1" style="font-size: 16px; display: none">&nbsp;&nbsp;-</span>
-               </div>
-               <br>
-               <div id="ua_list" style="font-size: 15px; display: none">
-                 <% Level.university_admission_levels.each do |ual| %>
-                   <%= check_box_tag "level[]", ual %> <%= ual %><br>
-                 <% end %>
-               </div>
-             </div>
-             <div class="col-md-6 col-sm-6 mrgtop10">
-               <div id="ep_list_head" style="cursor: pointer; font-weight: bolder;">
-                 <span style="font-size: 16px;">시험 준비</span>
-                 <span class="collapse_status_button_2" style="font-size: 16px;">&nbsp;&nbsp;+</span>
-                 <span class="collapse_status_button_2" style="font-size: 16px; display: none">&nbsp;&nbsp;-</span>
-               </div>
-               <br>
-               <div id="ep_list" style="font-size: 15px; display: none">
-                 <% Level.exam_preparation_levels.each do |epl| %>
-                   <%= check_box_tag "level[]", epl %> <%= epl %><br>
-                 <% end %>
-               </div>
-             </div>
-           </div><!-- end of level-->
+      </div>           
            <%= submit_tag "선생님 찾기", :name => nil, :class=> "indexsearchbutton pull-right" %>
          </div>
      <% end %>
@@ -65,34 +19,6 @@
 
 
 <div class="container">
-  <div class="howitworks">  
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <div class="row">
-          <h1 style="color:#2E3338">이용방법</h1><br>
-          <div class="col-md-4">
-            <h1><span class="glyphicon glyphicon-search"></span></h1>
-            <h3>선생님 찾기</h3><br>
-            <p>과목, 레벨, 위치, 출신 대학: 선생님들의 프로필 그리고 후기를 보고 원하시는 선생님을 찾습니다.</p>
-            <p></p>
-          </div>
-          <div class="col-md-4">
-            <h1><span class="glyphicon glyphicon-envelope"></span></h1>
-            <h3>선생님께 연락하기</h3><br>
-            <p>수업을 통해 어떤 목표를 달성하고 싶은지, 희망 수업 날짜는 언제인지, 수업료는 얼마쯤 생각하고 있는지 지금 바로 연락합니다.</p>
-          </div>
-          <div class="col-md-4">
-            <h1><span class="glyphicon glyphicon-pencil"></span></h1>
-            <h3>배우기 시작하기</h3><br>
-            <p>수업 날짜가 정해졌으면 이제 연락처 교환을 하고 수업을 시작합니다.</p>
-          </div>
-        </div><!-- end of row -->
-      </div>
-    </div><!-- end of row --> 
-  </div><!-- end of howitworks-->
-<br>
-
 <div class="row">
   <div class="col-md-1 col-sm-1 col-xs-1"></div>          
     <div class="col-md-10 col-sm-10 col-xs-10">
@@ -205,91 +131,6 @@
     </div>
   </div>
 </div>  
-<br>
-  
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-      <hr>
-      <div class="row">
-        <h1 style="color:#2E3338; text-align:center">칼리지 에세이</h1><br>
-        <div class="col-md-4 col-sm-4">
-           <div class="thumbnail">
-             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_princeton.jpg">
-             <div class="caption">
-                <h3>Princeton, Molecular Biology, 2010</h3>
-                <h4><b>Write about what you like</b></h4>
-                  <p style="font-size:12px;">She wore a fluffy elf cap—powder pink, of course—and at barely an arm’s length, she already sported wispy hair and delicate fingers and toes. Still, her puffy eyes seemed...</p>
-               <p style="text-align:right"><%= link_to '더 보기', pages_college_essays_path, class:"btn btn-default" %></p>
-             </div>
-           </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-           <div class="thumbnail">
-             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_stanford.jpg">
-             <div class="caption">
-                <h3>Stanford, Economics, 2011</h3>
-                <h4><b>Tell us what makes Stanford a good place for you.</b></h4>
-                  <p style="font-size:12px;">In AP Statistics, I often utilized the Least Squares method to find correlations between two data sets. First, I would gen...</p>
-               <p style="text-align:right"><%= link_to '더 보기', pages_college_essays_path, class:"btn btn-default" %></p>
-             </div>
-           </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-           <div class="thumbnail">
-             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_pennsylvania.jpg">
-             <div class="caption">
-                <h3>Pennsylvania, Engineering, 2009</h3>
-                <h4><b>Which of the academic communities and social...</b></h4>
-                  <p style="font-size:12px;">I see the beauty in our natural assembly of neurons, the splendor of circuits in digital chips, and of course the undying...</p>
-               <p style="text-align:right"><%= link_to '더 보기', pages_college_essays_path, class:"btn btn-default" %></p>
-             </div>
-           </div>
-        </div>       
-      </div><!-- end of row -->
-    </div>
-  </div>
-<br> 
-    <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-      <hr>
-      <div class="row">
-        <h1 style="color:#2E3338; text-align:center">자기소개서</h1><br>
-        <div class="col-md-4 col-sm-4">
-           <div class="thumbnail">
-             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_lse.jpg">
-             <div class="caption">
-                <h3>LSE, Mathematics, 2012</h3>
-                <p style="font-size:12px;">The first time I decided that I really wanted to study a Mathematics degree was after reading Simon Singh’s ‘Fermat’s Last Theorem’. I was captivated by his description of Andrew Wiles’ struggle to prove one of the most di!cult problems in Mathematics. Besides reading about Wiles’ remarkable perseverance and dedication, two important qualities for a mathematician, I also enjoyed some...</p>
-               <p style="text-align:right"><%= link_to '더 보기', pages_personal_statements_path, class:"btn btn-default" %></p>
-             </div>
-           </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-           <div class="thumbnail">
-             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_cambridge.jpg">
-             <div class="caption">
-                <h3>Cambridge, Natural Sciences, 2011</h3>               
-                  <p style="font-size:12px;">Arguably, this is an age where societal development is closely linked with advances in science and technology. Things we take for granted, such as drugs, capture my curiosity. This is because our manipulation of them is within the limits of our knowledge on the complexity of life. Therefore progress is largely dependent on explorations... </p>
-               <p style="text-align:right"><%= link_to '더 보기', pages_personal_statements_path, class:"btn btn-default" %></p>
-             </div>
-           </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-           <div class="thumbnail">
-             <img src="https://s3-ap-northeast-1.amazonaws.com/gurumek/colleges_imperial.jpg">
-             <div class="caption">
-                <h3>Imperial College, Engineering, 2011</h3>                
-                  <p style="font-size:12px;">From a young age I have been mesmerised by the world of science and technology. I am specifically drawn by the science of the materials that are used to create our industrial world. When the Nobel Prize was just recently awarded to the discoverers of graphene, a breakthrough, atom-thin carbon material, my fascination has been reignited...</p>
-               <p style="text-align:right"><%= link_to '더 보기', pages_personal_statements_path, class:"btn btn-default" %></p>
-             </div>
-           </div>
-        </div>       
-      </div><!-- end of row -->
-      </div>
-    </div>
-<br> 
 </div><!-- end of container-->
   
 <script>
